@@ -38,8 +38,8 @@ class CreateUsersTable extends Migration
     {
         Schema::dropIfExists('users');
 
-        // Schema::table('users', function (Blueprint $table) {
-        //     $table->dropColumn(['api_token']);
-        // });
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn(['api_token']);
+        });
     }
 }
