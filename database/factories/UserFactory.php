@@ -19,5 +19,57 @@ $factory->define(App\User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => str_random(10),
+        'access_type' => $faker->randomElement(['customer', 'restaurant_owner', 'owner']),
+        'status' => 'active'
+    ];
+});
+
+$factory->define(\App\Restaurant::class, function (Faker $faker) {
+    return [
+        'name' => $faker->company,
+        'email' => $faker->companyEmail,
+        'user_id' => function() {
+            return factory(\App\User::class)->create()->id;
+        },
+    ];
+});
+
+$factory->define(\App\LocationPostCode::class, function (Faker $faker) {
+    return [
+        'area' => $faker->city,
+        'postcode_border' => $faker->postcode,
+        'restaurant_id' => function() {
+            return factory(\App\Restaurant::class)->create()->id;
+        },
+        'min_price' => 1.40,
+        'max_price' => 4.00,
+        'rise_price' => 3.88,
+        'normal_price' => 1.55
+    ];
+});
+
+$factory->define(\App\LocationDistance::class, function (Faker $faker) {
+    return [
+        'start_mil' => 1,
+        'end_mil' => 10,
+        'restaurant_id' => function() {
+            return factory(\App\Restaurant::class)->create()->id;
+        },
+        'min_price' => 1.40,
+        'max_price' => 4.00,
+        'rise_price' => 3.88,
+        'normal_price' => 1.55
+    ];
+});
+
+$factory->define(\App\RestaurantWorkingDay::class, function (Faker $faker) {
+    return [
+        'restaurant_id' => function() {
+            return factory(\App\Restaurant::class)->create()->id;
+        },
+        'start_hour' => 1,
+        'end_hour' => 10,
+        'week_day' => $faker->randomElement(['monday', 'sunday', 'tuesday', 'wednesday', 'friday', 'saturday', 'sunday']),
+        'status' => $faker->randomElement(['open', 'closed']),
     ];
 });

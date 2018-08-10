@@ -18,13 +18,21 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('restaurant_id')->unsigned()->index()->nullable();
+            $table->enum('access_type', [
+                'customer',
+                'restaurant_owner',
+                'owner'
+            ]);
+            $table->enum('status', [
+                'active',
+                'disabled',
+                'deleted'
+            ]);
             $table->rememberToken();
             $table->timestamps();
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->foreign('restaurant_id')->references('id')->on('restaurants');
             $table->string('api_token', 60)->unique()->nullable();
         });
     }

@@ -16,19 +16,16 @@ class CreateRestaurantsTable extends Migration
         Schema::create('restaurants', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('location_postcode');
-            $table->float('longitude');
-            $table->float('latitude');
             $table->text('description')->nullable();
-            $table->string('restaurant_owner_name');
-            $table->string('restaurant_email');
-            // $table->enum('status', [
-            //     'active',
-            //     'deactive',
-            // ]);
+            $table->string('email');
+            $table->integer('user_id')->unsigned()->index();
             $table->string('web_site')->nullable();
             $table->string('type')->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('restaurants', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
