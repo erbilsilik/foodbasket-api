@@ -30,6 +30,10 @@ $factory->define(\App\Restaurant::class, function (Faker $faker) {
     return [
         'name' => $faker->company,
         'email' => $faker->companyEmail,
+        'postcode' => "LS9 3DC",
+        'longitude' => "13131313",
+        'latitude' => "133113313131",
+
         'user_id' => function() {
             return factory(\App\User::class)->create()->id;
         },

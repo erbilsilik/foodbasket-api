@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use Ixudra\Curl\Facades\Curl;
 
 
 class Helper
