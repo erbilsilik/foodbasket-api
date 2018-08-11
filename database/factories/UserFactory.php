@@ -34,7 +34,7 @@ $factory->define(\App\Restaurant::class, function (Faker $faker) {
         'longitude' => "13131313",
         'latitude' => "133113313131",
 
-        'user_id' => function() {
+        'user_id' => function () {
             return factory(\App\User::class)->create()->id;
         },
     ];
@@ -44,7 +44,7 @@ $factory->define(\App\LocationPostCode::class, function (Faker $faker) {
     return [
         'area' => $faker->city,
         'postcode_border' => $faker->postcode,
-        'restaurant_id' => function() {
+        'restaurant_id' => function () {
             return factory(\App\Restaurant::class)->create()->id;
         },
         'min_price' => 1.40,
@@ -58,7 +58,7 @@ $factory->define(\App\LocationDistance::class, function (Faker $faker) {
     return [
         'start_mil' => 1,
         'end_mil' => 10,
-        'restaurant_id' => function() {
+        'restaurant_id' => function () {
             return factory(\App\Restaurant::class)->create()->id;
         },
         'min_price' => 1.40,
@@ -70,7 +70,7 @@ $factory->define(\App\LocationDistance::class, function (Faker $faker) {
 
 $factory->define(\App\RestaurantWorkingDay::class, function (Faker $faker) {
     return [
-        'restaurant_id' => function() {
+        'restaurant_id' => function () {
             return factory(\App\Restaurant::class)->create()->id;
         },
         'start_hour' => 1,
@@ -82,7 +82,7 @@ $factory->define(\App\RestaurantWorkingDay::class, function (Faker $faker) {
 
 $factory->define(\App\Food::class, function (Faker $faker) {
     return [
-        'restaurant_id' => function() {
+        'restaurant_id' => function () {
             return factory(\App\Restaurant::class)->create()->id;
         },
         'name' => $faker->colorName,
@@ -96,7 +96,7 @@ $factory->define(\App\CustomerAddress::class, function (Faker $faker) {
     return [
         'postcode' => $faker->postcode,
         'address' => $faker->address,
-        'user_id' => function() {
+        'user_id' => function () {
             return factory(\App\User::class)->create()->id;
         },
     ];
@@ -107,11 +107,12 @@ $factory->define(\App\OrderItem::class, function (Faker $faker) {
     $orders = \App\Order::pluck('id')->toArray();
     return [
         'food_id' => $faker->randomElement($foods),
-        'order_id'=> $faker->randomElement($orders),
+        'order_id' => $faker->randomElement($orders),
         'price' => $faker->numberBetween(1, 500),
         'amount' => $faker->numberBetween(1, 10)
     ];
 });
+
 $factory->define(\App\Order::class, function (Faker $faker) {
     $customers = \App\User::pluck('id')->toArray();
     $restaurants = \App\Restaurant::pluck('id')->toArray();
@@ -120,6 +121,6 @@ $factory->define(\App\Order::class, function (Faker $faker) {
         'user_id' => $faker->randomElement($customers),
         'restaurant_id' => $faker->randomElement($restaurants),
         'customer_address_id' => $faker->randomElement($userAddress),
-        'status' =>  $faker->randomElement(['approved', 'waiting', 'rejected']),
+        'status' => $faker->randomElement(['approved', 'waiting', 'rejected']),
     ];
 });

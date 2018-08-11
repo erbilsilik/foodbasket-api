@@ -36,3 +36,9 @@ Route::put('foods/{id}', 'FoodController@update');
 Route::delete('foods/{id}', 'FoodController@destroy');
 
 Route::get('restaurantsearch', 'RestaurantController@searchRestaurants');
+
+
+Route::get('{userId}/orders', 'OrderController@index');
+Route::post('{userId}/orders', 'OrderController@store');
+Route::put('orders/{id}', 'OrderController@update');
+Route::delete('orders/{id}', 'OrderController@destroy');
