@@ -25,4 +25,9 @@ class Restaurant extends Model
     {
         return $this->hasOne('App\RestaurantWorkingDay');
     }
+
+    public function foods()
+    {
+        return $this->hasMany('App\Food');
+    }
 }

@@ -2,38 +2,85 @@
 
 namespace App\Http\Controllers;
 
+use App\Restaurant;
 use Illuminate\Http\Request;
+use App\Http\Manager\RestaurantManager;
 
 class RestaurantController extends Controller
 {
+    private $restaurantManager;
+
+    public function __construct()
+    {
+        $this->restaurantManager = new RestaurantManager();
+    }
+
+    // GENERAL ENDPOINTS //
+
+    public function searchRestaurants(Request $request)
+    {
+        $postCode = $request->get('postcode');
+        $this->restaurantManager->searchRestaurantsByPostCode($postCode);
+    }
+
+    // ENDPOINTS FOR OWNERS //
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        return Restaurant::all();
-    }
- 
-    public function show($id)
-    {
-        return Restaurant::find($id);
+        return response()
+            ->json($this->restaurantManager->getRestaurantList());
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-        return Restaurant::create($request->all());
+        return $this->restaurantManager->addRestaurant($request->all());
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        return response()
+            ->json($this->restaurantManager->getRestaurantById($id));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
-        $restaurant = Restaurant::findOrFail($id);
-        $restaurant->update($request->all());
-
-        return $restaurant;
+        return response()
+            ->json($this->restaurantManager->updateRestaurant($id, $request->all()));
     }
 
-    public function delete(Request $request, $id)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
     {
-        $restaurant = Restaurant::findOrFail($id);
-        $restaurant->delete();
+        $this->restaurantManager->deleteRestaurant($id);
 
-        return 204;
+        return response(204);
     }
 }
