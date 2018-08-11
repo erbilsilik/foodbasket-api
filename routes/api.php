@@ -20,3 +20,12 @@ use Illuminate\Http\Request;
 Route::post('register', 'Auth\RegisterController@register');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');
+
+
+Route::group(['middleware' => 'check.owner'], (function () {
+    Route::get('restaurants', 'RestaurantController@index');
+    Route::get('restaurants/{id}', 'RestaurantController@show');
+    Route::post('restaurants', 'RestaurantController@store');
+    Route::put('restaurants/{id}', 'RestaurantController@update');
+    Route::delete('restaurants/{id}', 'RestaurantController@destroy');
+}));

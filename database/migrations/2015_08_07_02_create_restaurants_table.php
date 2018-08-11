@@ -19,7 +19,7 @@ class CreateRestaurantsTable extends Migration
             $table->text('description')->nullable();
             $table->string('email');
             $table->integer('user_id')->unsigned()->index();
-            $table->string('web_site')->nullable();
+            $table->string('web_page')->nullable();
             $table->string('type')->nullable();
             $table->timestamps();
         });
