@@ -91,3 +91,35 @@ $factory->define(\App\Food::class, function (Faker $faker) {
         'price' => 5
     ];
 });
+
+$factory->define(\App\CustomerAddress::class, function (Faker $faker) {
+    return [
+        'postcode' => $faker->postcode,
+        'address' => $faker->address,
+        'user_id' => function() {
+            return factory(\App\User::class)->create()->id;
+        },
+    ];
+});
+
+$factory->define(\App\OrderItem::class, function (Faker $faker) {
+    $foods = \App\Food::pluck('id')->toArray();
+    $orders = \App\Order::pluck('id')->toArray();
+    return [
+        'food_id' => $faker->randomElement($foods),
+        'order_id'=> $faker->randomElement($orders),
+        'price' => $faker->numberBetween(1, 500),
+        'amount' => $faker->numberBetween(1, 10)
+    ];
+});
+$factory->define(\App\Order::class, function (Faker $faker) {
+    $customers = \App\User::pluck('id')->toArray();
+    $restaurants = \App\Restaurant::pluck('id')->toArray();
+    $userAddress = \App\CustomerAddress::pluck('id')->toArray();
+    return [
+        'user_id' => $faker->randomElement($customers),
+        'restaurant_id' => $faker->randomElement($restaurants),
+        'customer_address_id' => $faker->randomElement($userAddress),
+        'status' =>  $faker->randomElement(['approved', 'waiting', 'rejected']),
+    ];
+});
