@@ -3,28 +3,29 @@
 namespace App\Http\Manager;
 
 use App\Helper;
+use App\Http\Entity\RestaurantEntity;
 use App\LocationPostCode;
 use App\Restaurant;
 
 class RestaurantManager
 {
     // methods for OWNERS
-    public static function getRestaurantList()
+    public function getRestaurantList()
     {
         return Restaurant::all();
     }
 
-    public static function getRestaurantById($id)
+    public function getRestaurantById($id)
     {
         return Restaurant::find($id);
     }
 
-    public static function addRestaurant($data)
+    public function addRestaurant($data)
     {
         return Restaurant::create($data);
     }
 
-    public static function updateRestaurant($id, $data)
+    public function updateRestaurant($id, $data)
     {
         $restaurant = Restaurant::findOrFail($id);
         $restaurant->update($data);
@@ -32,13 +33,13 @@ class RestaurantManager
         return $restaurant;
     }
 
-    public static function deleteRestaurant($id)
+    public function deleteRestaurant($id)
     {
         $article = Restaurant::findOrFail($id);
         $article->delete();
     }
 
-    public static function searchRestaurantsByPostCode($postCode)
+    public function searchRestaurantsByPostCode($postCode)
     {
         $locationInfo = Helper::getLocationInfo($postCode);
 
@@ -80,3 +81,31 @@ class RestaurantManager
         return 'No location info found!';
     }
 }
+
+
+/*    public function map($db)
+    {
+        $restaurantEntity = new RestaurantEntity();
+        $restaurantEntity->setId($db->id);
+        $restaurantEntity->setName($db->name);
+        $restaurantEntity->setDescription($db->description);
+        $restaurantEntity->setEmail($db->email);
+        $restaurantEntity->setWebPage($db->web_page);
+        $restaurantEntity->setType($db->type);
+
+        return $restaurantEntity;
+    }
+
+    public function mapExternal($post)
+    {
+        $restaurantEntity = new RestaurantEntity();
+        $restaurantEntity->setId($post->id);
+        $restaurantEntity->setName(trim($post->name));
+        $restaurantEntity->setDescription(trim($post->description));
+        $restaurantEntity->setEmail(trim($post->email));
+        $restaurantEntity->setWebPage(trim($post->webPage));
+        $restaurantEntity->setType($post->type);
+
+        return $restaurantEntity;
+    }
+*/

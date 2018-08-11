@@ -75,3 +75,15 @@ $factory->define(\App\RestaurantWorkingDay::class, function (Faker $faker) {
         'status' => $faker->randomElement(['open', 'closed']),
     ];
 });
+
+$factory->define(\App\Food::class, function (Faker $faker) {
+    return [
+        'restaurant_id' => function() {
+            return factory(\App\Restaurant::class)->create()->id;
+        },
+        'name' => $faker->colorName,
+        'detail' => $faker->text(200),
+        'img' => $faker->imageUrl(),
+        'price' => 5
+    ];
+});

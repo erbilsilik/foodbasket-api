@@ -29,3 +29,8 @@ Route::group(['middleware' => 'check.owner'], (function () {
     Route::put('restaurants/{id}', 'RestaurantController@update');
     Route::delete('restaurants/{id}', 'RestaurantController@destroy');
 }));
+
+Route::get('{restaurantId}/foods', 'FoodController@index');
+Route::post('{restaurantId}/foods', 'FoodController@store');
+Route::put('foods/{id}', 'FoodController@update');
+Route::delete('foods/{id}', 'FoodController@destroy');

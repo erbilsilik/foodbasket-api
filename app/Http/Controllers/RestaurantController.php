@@ -8,12 +8,19 @@ use App\Http\Manager\RestaurantManager;
 
 class RestaurantController extends Controller
 {
+    private $restaurantManager;
+
+    public function __construct()
+    {
+        $this->restaurantManager = new RestaurantManager();
+    }
+
     // GENERAL ENDPOINTS //
 
     public function searchRestaurants(Request $request)
     {
         $postCode = $request->get('postcode');
-        RestaurantManager::searchRestaurantsByPostCode($postCode);
+        $this->restaurantManager->searchRestaurantsByPostCode($postCode);
     }
 
     // ENDPOINTS FOR OWNERS //
@@ -25,7 +32,7 @@ class RestaurantController extends Controller
     public function index()
     {
         return response()
-            ->json(RestaurantManager::getRestaurantList());
+            ->json($this->restaurantManager->getRestaurantList());
     }
 
     /**
@@ -36,7 +43,7 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
-        return RestaurantManager::addRestaurant($request->all());
+        return $this->restaurantManager->addRestaurant($request->all());
     }
 
     /**
@@ -48,7 +55,7 @@ class RestaurantController extends Controller
     public function show($id)
     {
         return response()
-            ->json(RestaurantManager::getRestaurantById($id));
+            ->json($this->restaurantManager->getRestaurantById($id));
     }
 
     /**
@@ -61,7 +68,7 @@ class RestaurantController extends Controller
     public function update(Request $request, $id)
     {
         return response()
-            ->json(RestaurantManager::updateRestaurant($id, $request->all()));
+            ->json($this->restaurantManager->updateRestaurant($id, $request->all()));
     }
 
     /**
@@ -72,7 +79,7 @@ class RestaurantController extends Controller
      */
     public function destroy($id)
     {
-        RestaurantManager::deleteRestaurant($id);
+        $this->restaurantManager->deleteRestaurant($id);
 
         return response(204);
     }

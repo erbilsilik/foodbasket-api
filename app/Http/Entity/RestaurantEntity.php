@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Entity;
+
 class RestaurantEntity
 {
     public $id;
