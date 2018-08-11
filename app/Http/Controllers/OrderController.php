@@ -35,7 +35,6 @@ class OrderController extends Controller
     public function store(Request $request, $userId)
     {
         return $this->orderManager->addOrder($request->all(), $userId);
-
     }
 
     /**

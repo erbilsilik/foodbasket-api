@@ -21,7 +21,6 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');
 
-
 Route::group(['middleware' => 'check.owner'], (function () {
     Route::get('restaurants', 'RestaurantController@index');
     Route::get('restaurants/{id}', 'RestaurantController@show');
@@ -35,8 +34,7 @@ Route::post('{restaurantId}/foods', 'FoodController@store');
 Route::put('foods/{id}', 'FoodController@update');
 Route::delete('foods/{id}', 'FoodController@destroy');
 
-Route::get('restaurantsearch', 'RestaurantController@searchRestaurants');
-
+Route::get('restaurant-search', 'RestaurantController@searchRestaurants');
 
 Route::get('{userId}/orders', 'OrderController@index');
 Route::post('{userId}/orders', 'OrderController@store');
