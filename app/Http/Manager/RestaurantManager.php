@@ -43,58 +43,65 @@ class RestaurantManager
 
     public function searchRestaurantsByPostCode($postCode)
     {
+        // Get PostCode Info from api
         $locationInfo = Helper::getLocationInfo($postCode);
 
         if ($locationInfo) {
+            //Seacrh PostCode Info
             $postcodeLongitude = $locationInfo->result->longitude;
             $postcodeLatitude = $locationInfo->result->latitude;
             $postcodeIncode = $locationInfo->result->incode;
             $postcodeOutcode = $locationInfo->result->outcode;
-
+            // Search Border Number
             $postCodeBorderNumber = substr($postcodeIncode, 0, 1);
 
+            //Search 1. Step
+            //Postcode Search
             $locationPostcodes = LocationPostCode::where([
                 ['area', $postcodeOutcode],
                 ['postcode_border', $postCodeBorderNumber],
             ])
-                ->orwhere([
-                    ['area',$postcodeOutcode],
-                    ['postcode_border', 10],
-                ])
-                ->get();
+            ->orwhere([
+                ['area', $postcodeOutcode],
+                ['postcode_border', 10],
+            ])
+            ->get();
 
             $restaurants = [];
             $i = 0;
             $rest = [];
-            foreach ($locationPostcodes as $LocationPostcode) {
-                $restaurants[$i]['restaurant'] = Restaurant::find($LocationPostcode->restaurant_id);
-                $location = LocationPostCode::find($LocationPostcode->id);
+
+            foreach($locationPostcodes as $locationPostCode){
+                $restaurants[$i]['restaurant'] = Restaurant::find($locationPostCode->restaurant_id);
+                $location = LocationPostCode::find($locationPostCode->id);
                 $restaurants[$i]['min_price'] = $location->min_price;
                 $restaurants[$i]['rise_price'] = $location->rise_price;
                 $restaurants[$i]['normal_price'] = $location->normal_price;
                 $i++;
             }
 
-
+            //Search 2. Step
+            //Distance Search
             $distances = DB::select('SELECT restaurants.*, SQRT(POW((restaurants.longitude - ('.$postcodeLongitude.')), 2) + POW((restaurants.latitude - ('.$postcodeLatitude.')), 2)) as mesafe FROM restaurants');
 
             foreach($distances as $distance) {
                 $realDistances = LocationDistance::where([
-                    ['start_mil', '<=', $distance->mesafe],
-                    ['end_mil', '>=', $distance->mesafe],
-                ])
-                    ->get();
-                foreach ($realDistances as $realDistance) {
+                ['start_mil', '<=', $distance->mesafe],
+                ['end_mil', '>=', $distance->mesafe],
+                ])->get();
+
+                foreach($realDistances as $realDistance){
                     if(!in_array($realDistance->restaurant_id, $rest)){
                         array_push($rest, $realDistance->restaurant_id);
                         $restaurants[$i]['restaurant'] = Restaurant::find($realDistance->restaurant_id);
-                        $loca = LocationDistance::find($realDistance->id);
-                        $restaurants[$i]['min_price'] = $loca->min_price;
-                        $restaurants[$i]['rise_price'] = $loca->rise_price;
-                        $restaurants[$i]['normal_price'] = $loca->normal_price;
+                        $location = LocationDistance::find($realDistance->id);
+                        $restaurants[$i]['min_price'] = $location->min_price;
+                        $restaurants[$i]['rise_price'] = $location->rise_price;
+                        $restaurants[$i]['normal_price'] = $location->normal_price;
                         $i++;
                     }
                 }
+
             }
 
             return $restaurants;

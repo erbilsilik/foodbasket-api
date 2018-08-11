@@ -20,7 +20,7 @@ class RestaurantController extends Controller
     public function searchRestaurants(Request $request)
     {
         $postCode = $request->get('postcode');
-        echo response()
+        return response()
             ->json($this->restaurantManager->searchRestaurantsByPostCode($postCode));
     }
 
