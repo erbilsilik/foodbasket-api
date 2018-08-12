@@ -23,7 +23,7 @@ class OrderManager
 
     public function addOrder($data, $userId)
     {
-        return Food::with('users')
+        return Order::with('users')
             ->where('user_id', $userId)
             ->create($data);
     }
