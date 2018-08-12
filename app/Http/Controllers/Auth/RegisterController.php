@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\Register\RegisterRequest;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
@@ -12,51 +13,6 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
-    use RegistersUsers;
-
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-    }
-
     /**
      * Create a new user instance after a valid registration.
      *
@@ -66,27 +22,50 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'first_name' => $data['firstName'],
+            'last_name' => $data['lastName'],
+            'phone_number' => $data['phoneNumber'],
             'email' => $data['email'],
+            'access_type' => 'customer',
+            'status' => 'active',
             'password' => Hash::make($data['password']),
         ]);
     }
 
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
-        event(new Registered($user = $this->create($request->all())));
+        $credentials = $request->only('firstName', 'lastName', 'phoneNumber', 'email', 'password', 'password_confirmation');
+        $rules = [
+            'firstName' => 'required | string | max:255',
+            'lastName' => 'required | string | max:255',
+            'phoneNumber' => 'required | numeric',
+            'email' => 'required | string | email | max: 255 | unique:users',
+            'password' => 'required | string | min: 6 | confirmed',
+        ];
+        $validator = Validator::make($credentials, $rules);
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'error' => $validator->messages()
+                ]
+            );
+        }
 
-        $this->guard()->login($user);
+        if ($this->create($request->all()) instanceof User) {
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Thanks for signing up! Please check your email to complete your registration.'
+                ]
+            );
+        }
 
-        return $this->registered($request, $user)
-                    ?: redirect($this->redirectPath());
-    }
-
-    protected function registered(Request $request, $user)
-    {
-        $user->generateToken();
-
-        return response()->json(['data' => $user->toArray()], 201);
+        return response()->json(
+            [
+                'success' => false,
+                'message' => 'An error occurred'
+            ]
+        );
     }
 }
