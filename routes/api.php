@@ -17,12 +17,17 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
+
+//Authentication
 Route::post('register', 'Auth\RegisterController@register');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');
 
+//Search
+Route::get('restaurant-search', 'RestaurantController@searchRestaurants');
 
 Route::group(['middleware' => 'check.owner'], (function () {
+    //Restaurants
     Route::get('restaurants', 'RestaurantController@index');
     Route::get('restaurants/{id}', 'RestaurantController@show');
     Route::post('restaurants', 'RestaurantController@store');
@@ -30,9 +35,26 @@ Route::group(['middleware' => 'check.owner'], (function () {
     Route::delete('restaurants/{id}', 'RestaurantController@destroy');
 }));
 
-Route::get('{restaurantId}/foods', 'FoodController@index');
-Route::post('{restaurantId}/foods', 'FoodController@store');
-Route::put('foods/{id}', 'FoodController@update');
-Route::delete('foods/{id}', 'FoodController@destroy');
+Route::group(['middleware' => 'check.restaurant.owner'], (function () {
+    //Foods
+    Route::get('{restaurantId}/foods', 'FoodController@index');
+    Route::post('{restaurantId}/foods', 'FoodController@store');
+    Route::put('foods/{id}', 'FoodController@update');
+    Route::delete('foods/{id}', 'FoodController@destroy');
 
-Route::get('restaurantsearch', 'RestaurantController@searchRestaurants');
+    //Orders
+    Route::get('{userId}/orders', 'OrderController@index');
+    Route::post('{userId}/orders', 'OrderController@store');
+    Route::delete('orders/{id}', 'OrderController@destroy');
+    Route::put('orders/{id}', 'OrderController@update');
+
+}));
+
+Route::group(['middleware' => 'check.customer'], (function () {
+    //Foods
+    Route::get('{restaurantId}/foods', 'FoodController@index');
+
+    //Orders
+    Route::get('{userId}/orders', 'OrderController@index');
+    Route::post('{userId}/orders', 'OrderController@store');
+}));

@@ -6,6 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Restaurant extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'email', 'description', 'postcode', 'longitude', 'latitude', 'user_id', 'web_page', 'type'
+    ];
+
     public function user()
     {
         return $this->hasOne('App\User');

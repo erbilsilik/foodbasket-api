@@ -17,5 +17,9 @@ class DatabaseSeeder extends Seeder
         factory(\App\LocationDistance::class, 3)->create();
         factory(\App\RestaurantWorkingDay::class, 3)->create();
         factory(\App\Food::class, 4)->create();
+        factory(\App\CustomerAddress::class, 4)->create();
+        factory(\App\Order::class, 4)->create();
+        factory(\App\OrderItem::class, 4)->create();
+
     }
 }
