@@ -30,9 +30,9 @@ $factory->define(\App\Restaurant::class, function (Faker $faker) {
     return [
         'name' => $faker->company,
         'email' => $faker->companyEmail,
-        'postcode' => "LS9 3DC",
-        'longitude' => "13131313",
-        'latitude' => "133113313131",
+        'postcode' => $faker->randomElement(["OX49 5NU", "M32 0JG", "NE30 1DP"]),
+        'longitude' => $faker->randomElement(["-1.069752", "-2.302836", "-1.439269"]),
+        'latitude' => $faker->randomElement(["51.655929", "53.455654", "55.011303"]),
 
         'user_id' => function () {
             return factory(\App\User::class)->create()->id;
@@ -42,8 +42,8 @@ $factory->define(\App\Restaurant::class, function (Faker $faker) {
 
 $factory->define(\App\LocationPostCode::class, function (Faker $faker) {
     return [
-        'area' => $faker->city,
-        'postcode_border' => $faker->postcode,
+        'area' => $faker->randomElement(["OX49", "M32", "NE30"]),
+        'postcode_border' => $faker->numberBetween(1, 10),
         'restaurant_id' => function () {
             return factory(\App\Restaurant::class)->create()->id;
         },
@@ -56,8 +56,8 @@ $factory->define(\App\LocationPostCode::class, function (Faker $faker) {
 
 $factory->define(\App\LocationDistance::class, function (Faker $faker) {
     return [
-        'start_mil' => 1,
-        'end_mil' => 10,
+        'start_mil' => 0,
+        'end_mil' => 5,
         'restaurant_id' => function () {
             return factory(\App\Restaurant::class)->create()->id;
         },
@@ -94,7 +94,7 @@ $factory->define(\App\Food::class, function (Faker $faker) {
 
 $factory->define(\App\CustomerAddress::class, function (Faker $faker) {
     return [
-        'postcode' => $faker->postcode,
+        'postcode' => $faker->randomElement(["OX49 5NU", "M32 0JG", "NE30 1DP"]),
         'address' => $faker->address,
         'user_id' => function () {
             return factory(\App\User::class)->create()->id;
