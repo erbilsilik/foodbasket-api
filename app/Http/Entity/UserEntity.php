@@ -8,6 +8,7 @@ class UserEntity
     public $email;
     public $phoneNumber;
     public $accessType;
+    public $status;
 
     /**
      * @return mixed
@@ -20,7 +21,7 @@ class UserEntity
     /**
      * @param mixed $id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
@@ -36,7 +37,7 @@ class UserEntity
     /**
      * @param mixed $firstName
      */
-    public function setFirstName($firstName)
+    public function setFirstName($firstName): void
     {
         $this->firstName = $firstName;
     }
@@ -52,7 +53,7 @@ class UserEntity
     /**
      * @param mixed $lastName
      */
-    public function setLastName($lastName)
+    public function setLastName($lastName): void
     {
         $this->lastName = $lastName;
     }
@@ -68,7 +69,7 @@ class UserEntity
     /**
      * @param mixed $email
      */
-    public function setEmail($email)
+    public function setEmail($email): void
     {
         $this->email = $email;
     }
@@ -84,7 +85,7 @@ class UserEntity
     /**
      * @param mixed $phoneNumber
      */
-    public function setPhoneNumber($phoneNumber)
+    public function setPhoneNumber($phoneNumber): void
     {
         $this->phoneNumber = $phoneNumber;
     }
@@ -100,7 +101,7 @@ class UserEntity
     /**
      * @param mixed $accessType
      */
-    public function setAccessType($accessType)
+    public function setAccessType($accessType): void
     {
         $this->accessType = $accessType;
     }
@@ -116,9 +117,10 @@ class UserEntity
     /**
      * @param mixed $status
      */
-    public function setStatus($status)
+    public function setStatus($status): void
     {
         $this->status = $status;
     }
-    public $status;
+
+
 }

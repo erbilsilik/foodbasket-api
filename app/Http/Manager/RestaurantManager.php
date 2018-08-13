@@ -24,13 +24,16 @@ class RestaurantManager implements ManagerInterface
 
     public function addRestaurant($data)
     {
-        return Restaurant::create($data);
+        $Entity = $this->mapExternal($data);
+
+        return Restaurant::create($Entity);
     }
 
     public function updateRestaurant($id, $data)
     {
         $restaurant = Restaurant::findOrFail($id);
-        $restaurant->update($data);
+        $Entity = $this->map($data);
+        $restaurant->update($Entity);
 
         return $restaurant;
     }

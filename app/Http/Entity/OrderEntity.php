@@ -5,9 +5,9 @@ namespace App\Http\Entity;
 class OrderEntity
 {
     public $id;
-    public $userid;
-    public $customer_adress_id;
-    public $restaurant_id;
+    public $userId;
+    public $customerAdressId;
+    public $restaurantId;
     public $status;
 
     /**
@@ -29,17 +29,17 @@ class OrderEntity
     /**
      * @return mixed
      */
-    public function getUserid()
+    public function getUserId()
     {
-        return $this->userid;
+        return $this->userId;
     }
 
     /**
-     * @param mixed $userid
+     * @param mixed $userId
      */
-    public function setUserid($userid): void
+    public function setUserId($userId): void
     {
-        $this->userid = $userid;
+        $this->userId = $userId;
     }
 
     /**
@@ -47,15 +47,15 @@ class OrderEntity
      */
     public function getCustomerAdressId()
     {
-        return $this->customer_adress_id;
+        return $this->customerAdressId;
     }
 
     /**
-     * @param mixed $customer_adress_id
+     * @param mixed $customerAdressId
      */
-    public function setCustomerAdressId($customer_adress_id): void
+    public function setCustomerAdressId($customerAdressId): void
     {
-        $this->customer_adress_id = $customer_adress_id;
+        $this->customerAdressId = $customerAdressId;
     }
 
     /**
@@ -63,15 +63,15 @@ class OrderEntity
      */
     public function getRestaurantId()
     {
-        return $this->restaurant_id;
+        return $this->restaurantId;
     }
 
     /**
-     * @param mixed $restaurant_id
+     * @param mixed $restaurantId
      */
-    public function setRestaurantId($restaurant_id): void
+    public function setRestaurantId($restaurantId): void
     {
-        $this->restaurant_id = $restaurant_id;
+        $this->restaurantId = $restaurantId;
     }
 
     /**
@@ -89,6 +89,7 @@ class OrderEntity
     {
         $this->status = $status;
     }
+
 
 
 }

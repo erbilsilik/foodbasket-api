@@ -5,7 +5,7 @@ namespace App\Http\Entity;
 class FoodEntity
 {
     public $id;
-    public $restaurant_id;
+    public $restaurantId;
     public $name;
     public $detail;
     public $img;
@@ -32,15 +32,15 @@ class FoodEntity
      */
     public function getRestaurantId()
     {
-        return $this->restaurant_id;
+        return $this->restaurantId;
     }
 
     /**
-     * @param mixed $restaurant_id
+     * @param mixed $restaurantId
      */
-    public function setRestaurantId($restaurant_id): void
+    public function setRestaurantId($restaurantId): void
     {
-        $this->restaurant_id = $restaurant_id;
+        $this->restaurantId = $restaurantId;
     }
 
     /**
@@ -106,5 +106,6 @@ class FoodEntity
     {
         $this->price = $price;
     }
+
 
 }
