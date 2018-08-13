@@ -8,6 +8,9 @@ class RestaurantEntity
     public $name;
     public $description;
     public $email;
+    public $postcode;
+    public $longitude;
+    public $latitude;
     public $webPage;
     public $type;
 
@@ -73,6 +76,55 @@ class RestaurantEntity
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getPostcode()
+    {
+        return $this->postcode;
+    }
+
+    /**
+     * @param mixed $postcode
+     */
+    public function setPostcode($postcode)
+    {
+        $this->postcode = $postcode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * @param mixed $longitude
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLatidute()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * @param mixed $latidute
+     */
+    public function setLatidute($latidute)
+    {
+        $this->latitude = $latidute;
     }
 
     /**

@@ -9,7 +9,7 @@ use App\Restaurant;
 use App\LocationDistance;
 use DB;
 
-class RestaurantManager
+class RestaurantManager implements ManagerInterface
 {
     // methods for OWNERS
     public function getRestaurantList()
@@ -109,10 +109,8 @@ class RestaurantManager
         return 'No location info found!';
 
     }
-}
 
-
-/*    public function map($db)
+    public function map($db)
     {
         $restaurantEntity = new RestaurantEntity();
         $restaurantEntity->setId($db->id);
@@ -137,4 +135,6 @@ class RestaurantManager
 
         return $restaurantEntity;
     }
-*/
+}
+
+

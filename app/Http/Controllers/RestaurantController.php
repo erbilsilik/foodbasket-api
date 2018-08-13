@@ -10,6 +10,9 @@ class RestaurantController extends Controller
 {
     private $restaurantManager;
 
+    /**
+     * RestaurantController constructor.
+     */
     public function __construct()
     {
         $this->restaurantManager = new RestaurantManager();
