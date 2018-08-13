@@ -5,12 +5,12 @@ namespace App\Http\Entity;
 class FoodEntity
 {
     public $id;
-    public $restaurantId;
+    public $restaurant_id;
     public $name;
     public $detail;
     public $img;
     public $price;
-    public $createdAt;
+    public $created_at;
 
     /**
      * @return mixed
@@ -33,15 +33,15 @@ class FoodEntity
      */
     public function getRestaurantId()
     {
-        return $this->restaurantId;
+        return $this->restaurant_id;
     }
 
     /**
-     * @param mixed $restaurantId
+     * @param mixed $restaurant_id
      */
-    public function setRestaurantId($restaurantId): void
+    public function setRestaurantId($restaurant_id): void
     {
-        $this->restaurantId = $restaurantId;
+        $this->restaurant_id = $restaurant_id;
     }
 
     /**
@@ -113,14 +113,15 @@ class FoodEntity
      */
     public function getCreatedAt()
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
     /**
-     * @param mixed $createdAt
+     * @param mixed $created_at
      */
-    public function setCreatedAt($createdAt): void
+    public function setCreatedAt($created_at): void
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
     }
+
 }

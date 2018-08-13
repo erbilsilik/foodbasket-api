@@ -5,13 +5,13 @@ namespace App\Http\Entity;
 class LocationDistanceEntity
 {
     public $id;
-    public $restaurantId;
-    public $startMil;
-    public $endMil;
-    public $minPrice;
-    public $normalPrice;
-    public $risePrice;
-    public $createdAt;
+    public $restaurant_id;
+    public $start_mil;
+    public $end_mil;
+    public $min_price;
+    public $normal_price;
+    public $rise_price;
+    public $created_at;
 
     /**
      * @return mixed
@@ -34,15 +34,15 @@ class LocationDistanceEntity
      */
     public function getRestaurantId()
     {
-        return $this->restaurantId;
+        return $this->restaurant_id;
     }
 
     /**
-     * @param mixed $restaurantId
+     * @param mixed $restaurant_id
      */
-    public function setRestaurantId($restaurantId): void
+    public function setRestaurantId($restaurant_id): void
     {
-        $this->restaurantId = $restaurantId;
+        $this->restaurant_id = $restaurant_id;
     }
 
     /**
@@ -50,15 +50,15 @@ class LocationDistanceEntity
      */
     public function getStartMil()
     {
-        return $this->startMil;
+        return $this->start_mil;
     }
 
     /**
-     * @param mixed $startMil
+     * @param mixed $start_mil
      */
-    public function setStartMil($startMil): void
+    public function setStartMil($start_mil): void
     {
-        $this->startMil = $startMil;
+        $this->start_mil = $start_mil;
     }
 
     /**
@@ -66,15 +66,15 @@ class LocationDistanceEntity
      */
     public function getEndMil()
     {
-        return $this->endMil;
+        return $this->end_mil;
     }
 
     /**
-     * @param mixed $endMil
+     * @param mixed $end_mil
      */
-    public function setEndMil($endMil): void
+    public function setEndMil($end_mil): void
     {
-        $this->endMil = $endMil;
+        $this->end_mil = $end_mil;
     }
 
     /**
@@ -82,15 +82,15 @@ class LocationDistanceEntity
      */
     public function getMinPrice()
     {
-        return $this->minPrice;
+        return $this->min_price;
     }
 
     /**
-     * @param mixed $minPrice
+     * @param mixed $min_price
      */
-    public function setMinPrice($minPrice): void
+    public function setMinPrice($min_price): void
     {
-        $this->minPrice = $minPrice;
+        $this->min_price = $min_price;
     }
 
     /**
@@ -98,15 +98,15 @@ class LocationDistanceEntity
      */
     public function getNormalPrice()
     {
-        return $this->normalPrice;
+        return $this->normal_price;
     }
 
     /**
-     * @param mixed $normalPrice
+     * @param mixed $normal_price
      */
-    public function setNormalPrice($normalPrice): void
+    public function setNormalPrice($normal_price): void
     {
-        $this->normalPrice = $normalPrice;
+        $this->normal_price = $normal_price;
     }
 
     /**
@@ -114,15 +114,15 @@ class LocationDistanceEntity
      */
     public function getRisePrice()
     {
-        return $this->risePrice;
+        return $this->rise_price;
     }
 
     /**
-     * @param mixed $risePrice
+     * @param mixed $rise_price
      */
-    public function setRisePrice($risePrice): void
+    public function setRisePrice($rise_price): void
     {
-        $this->risePrice = $risePrice;
+        $this->rise_price = $rise_price;
     }
 
     /**
@@ -130,14 +130,15 @@ class LocationDistanceEntity
      */
     public function getCreatedAt()
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
     /**
-     * @param mixed $createdAt
+     * @param mixed $created_at
      */
-    public function setCreatedAt($createdAt): void
+    public function setCreatedAt($created_at): void
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
     }
+
 }

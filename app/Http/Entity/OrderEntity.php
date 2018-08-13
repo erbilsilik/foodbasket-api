@@ -5,11 +5,11 @@ namespace App\Http\Entity;
 class OrderEntity
 {
     public $id;
-    public $userId;
-    public $customerAdressId;
-    public $restaurantId;
+    public $user_id;
+    public $customer_address_id;
+    public $restaurant_id;
     public $status;
-    public $createdAt;
+    public $created_at;
 
     /**
      * @return mixed
@@ -32,15 +32,15 @@ class OrderEntity
      */
     public function getUserId()
     {
-        return $this->userId;
+        return $this->user_id;
     }
 
     /**
-     * @param mixed $userId
+     * @param mixed $user_id
      */
-    public function setUserId($userId): void
+    public function setUserId($user_id): void
     {
-        $this->userId = $userId;
+        $this->user_id = $user_id;
     }
 
     /**
@@ -48,15 +48,15 @@ class OrderEntity
      */
     public function getCustomerAdressId()
     {
-        return $this->customerAdressId;
+        return $this->customer_address_id;
     }
 
     /**
-     * @param mixed $customerAdressId
+     * @param mixed $customer_adress_id
      */
-    public function setCustomerAdressId($customerAdressId): void
+    public function setCustomerAdressId($customer_address_id): void
     {
-        $this->customerAdressId = $customerAdressId;
+        $this->customer_address_id = $customer_address_id;
     }
 
     /**
@@ -64,15 +64,15 @@ class OrderEntity
      */
     public function getRestaurantId()
     {
-        return $this->restaurantId;
+        return $this->restaurant_id;
     }
 
     /**
-     * @param mixed $restaurantId
+     * @param mixed $restaurant_id
      */
-    public function setRestaurantId($restaurantId): void
+    public function setRestaurantId($restaurant_id): void
     {
-        $this->restaurantId = $restaurantId;
+        $this->restaurant_id = $restaurant_id;
     }
 
     /**
@@ -96,14 +96,15 @@ class OrderEntity
      */
     public function getCreatedAt()
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
     /**
-     * @param mixed $createdAt
+     * @param mixed $created_at
      */
-    public function setCreatedAt($createdAt): void
+    public function setCreatedAt($created_at): void
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
     }
+
 }

@@ -26,7 +26,7 @@ class RestaurantManager implements ManagerInterface
 
     public function addRestaurant($data)
     {
-        $managerMapExternal = $this->mapExternal($data);
+        $managerMapExternal = (array) $this->mapExternal($data);
 
         return Restaurant::create($managerMapExternal);
     }
@@ -34,7 +34,7 @@ class RestaurantManager implements ManagerInterface
     public function updateRestaurant($id, $data)
     {
         $restaurant = Restaurant::findOrFail($id);
-        $managerMap = $this->map($data);
+        $managerMap = (array) $this->map($data);
         $restaurant->update($managerMap);
 
         return $restaurant;
@@ -118,15 +118,15 @@ class RestaurantManager implements ManagerInterface
     public function map($db)
     {
         $restaurantEntity = new RestaurantEntity();
-        $restaurantEntity->setId($db->id);
-        $restaurantEntity->setName($db->name);
-        $restaurantEntity->setDescription($db->description);
-        $restaurantEntity->setEmail($db->email);
-        $restaurantEntity->setPostcode($db->postcode);
-        $restaurantEntity->setLongitude($db->longitude);
-        $restaurantEntity->setLatitude($db->latitude);
-        $restaurantEntity->setWebPage($db->web_page);
-        $restaurantEntity->setType($db->type);
+        $restaurantEntity->setId($db['id']);
+        $restaurantEntity->setName($db['name']);
+        $restaurantEntity->setDescription($db['description']);
+        $restaurantEntity->setEmail($db['email']);
+        $restaurantEntity->setPostcode($db['postcode']);
+        $restaurantEntity->setLongitude($db['longitude']);
+        $restaurantEntity->setLatitude($db['latitude']);
+        $restaurantEntity->setWebPage($db['web_page']);
+        $restaurantEntity->setType($db['type']);
 
         return $restaurantEntity;
     }
@@ -134,14 +134,14 @@ class RestaurantManager implements ManagerInterface
     public function mapExternal($post)
     {
         $restaurantEntity = new RestaurantEntity();
-        $restaurantEntity->setId($post->id);
-        $restaurantEntity->setName(trim($post->name));
-        $restaurantEntity->setDescription(trim($post->description));
-        $restaurantEntity->setEmail(trim($post->email));
-        $restaurantEntity->setPostcode($post->postcode);
-        $restaurantEntity->setLongitude($post->longitude);
-        $restaurantEntity->setLatitude($post->latitude);
-        $restaurantEntity->setWebPage(trim($post->webPage));
+        $restaurantEntity->setId($post['id']);
+        $restaurantEntity->setName(trim($post['name']));
+        $restaurantEntity->setDescription(trim($post['description']));
+        $restaurantEntity->setEmail(trim($post['email']));
+        $restaurantEntity->setPostcode($post['postcode']);
+        $restaurantEntity->setLongitude($post['longitude']);
+        $restaurantEntity->setLatitude($post['latitude']);
+        $restaurantEntity->setWebPage(trim($post['webPage']));
         $restaurantEntity->setType($post->type);
 
         return $restaurantEntity;

@@ -11,9 +11,9 @@ class RestaurantEntity
     public $postcode;
     public $longitude;
     public $latitude;
-    public $webPage;
+    public $web_page;
     public $type;
-    public $createdAt;
+    public $created_at;
 
     /**
      * @return mixed
@@ -132,15 +132,15 @@ class RestaurantEntity
      */
     public function getWebPage()
     {
-        return $this->webPage;
+        return $this->web_page;
     }
 
     /**
-     * @param mixed $webPage
+     * @param mixed $web_page
      */
-    public function setWebPage($webPage): void
+    public function setWebPage($web_page): void
     {
-        $this->webPage = $webPage;
+        $this->web_page = $web_page;
     }
 
     /**
@@ -164,14 +164,15 @@ class RestaurantEntity
      */
     public function getCreatedAt()
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
     /**
-     * @param mixed $createdAt
+     * @param mixed $created_at
      */
-    public function setCreatedAt($createdAt): void
+    public function setCreatedAt($created_at): void
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
     }
+
 }

@@ -5,13 +5,13 @@ namespace App\Http\Entity;
 class LocationPostCodeEntity
 {
     public $id;
-    public $restaurantId;
+    public $restaurant_id;
     public $area;
-    public $postcodeBorder;
-    public $minPrice;
-    public $maxPrice;
-    public $normalPrice;
-    public $createdAt;
+    public $postcode_border;
+    public $min_price;
+    public $max_price;
+    public $normal_price;
+    public $created_at;
 
     /**
      * @return mixed
@@ -34,15 +34,15 @@ class LocationPostCodeEntity
      */
     public function getRestaurantId()
     {
-        return $this->restaurantId;
+        return $this->restaurant_id;
     }
 
     /**
-     * @param mixed $restaurantId
+     * @param mixed $restaurant_id
      */
-    public function setRestaurantId($restaurantId): void
+    public function setRestaurantId($restaurant_id): void
     {
-        $this->restaurantId = $restaurantId;
+        $this->restaurant_id = $restaurant_id;
     }
 
     /**
@@ -66,15 +66,15 @@ class LocationPostCodeEntity
      */
     public function getPostcodeBorder()
     {
-        return $this->postcodeBorder;
+        return $this->postcode_border;
     }
 
     /**
-     * @param mixed $postcodeBorder
+     * @param mixed $postcode_border
      */
-    public function setPostcodeBorder($postcodeBorder): void
+    public function setPostcodeBorder($postcode_border): void
     {
-        $this->postcodeBorder = $postcodeBorder;
+        $this->postcode_border = $postcode_border;
     }
 
     /**
@@ -82,15 +82,15 @@ class LocationPostCodeEntity
      */
     public function getMinPrice()
     {
-        return $this->minPrice;
+        return $this->min_price;
     }
 
     /**
-     * @param mixed $minPrice
+     * @param mixed $min_price
      */
-    public function setMinPrice($minPrice): void
+    public function setMinPrice($min_price): void
     {
-        $this->minPrice = $minPrice;
+        $this->min_price = $min_price;
     }
 
     /**
@@ -98,15 +98,15 @@ class LocationPostCodeEntity
      */
     public function getMaxPrice()
     {
-        return $this->maxPrice;
+        return $this->max_price;
     }
 
     /**
-     * @param mixed $maxPrice
+     * @param mixed $max_price
      */
-    public function setMaxPrice($maxPrice): void
+    public function setMaxPrice($max_price): void
     {
-        $this->maxPrice = $maxPrice;
+        $this->max_price = $max_price;
     }
 
     /**
@@ -114,15 +114,15 @@ class LocationPostCodeEntity
      */
     public function getNormalPrice()
     {
-        return $this->normalPrice;
+        return $this->normal_price;
     }
 
     /**
-     * @param mixed $normalPrice
+     * @param mixed $normal_price
      */
-    public function setNormalPrice($normalPrice): void
+    public function setNormalPrice($normal_price): void
     {
-        $this->normalPrice = $normalPrice;
+        $this->normal_price = $normal_price;
     }
 
     /**
@@ -130,14 +130,15 @@ class LocationPostCodeEntity
      */
     public function getCreatedAt()
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
     /**
-     * @param mixed $createdAt
+     * @param mixed $created_at
      */
-    public function setCreatedAt($createdAt): void
+    public function setCreatedAt($created_at): void
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
     }
+
 }

@@ -24,7 +24,7 @@ class FoodManager implements ManagerInterface
 
     public function addFood($data, $restaurantId)
     {
-        $food = $this->mapExternal($data);
+        $food = (array) $this->mapExternal($data);
 
         return Food::with('restaurants')
             ->where('restaurant_id', $restaurantId)
@@ -34,7 +34,7 @@ class FoodManager implements ManagerInterface
     public function updateFood($id, $data)
     {
         $food = Food::findOrFail($id);
-        $managerMap = $this->map($data);
+        $managerMap = (array) $this->map($data);
         $food->update($managerMap);
 
         return $food;
@@ -49,12 +49,12 @@ class FoodManager implements ManagerInterface
     public function map($db)
     {
         $foodEntity = new FoodEntity();
-        $foodEntity->setId($db->id);
-        $foodEntity->setRestaurantId($db->restaurant_id);
-        $foodEntity->setName($db->name);
-        $foodEntity->setDetail($db->detail);
-        $foodEntity->setImg($db->img);
-        $foodEntity->setPrice($db->price);
+        $foodEntity->setId($db['id']);
+        $foodEntity->setRestaurantId($db['restaurant_id']);
+        $foodEntity->setName($db['name']);
+        $foodEntity->setDetail($db['detail']);
+        $foodEntity->setImg($db['img']);
+        $foodEntity->setPrice($db['price']);
 
         return $foodEntity;
     }
@@ -62,12 +62,12 @@ class FoodManager implements ManagerInterface
     public function mapExternal($post)
     {
         $foodEntity = new FoodEntity();
-        $foodEntity->setId($post->id);
-        $foodEntity->setRestaurantId($post->restaurant_id);
-        $foodEntity->setName($post->name);
-        $foodEntity->setDetail($post->detail);
-        $foodEntity->setImg($post->img);
-        $foodEntity->setPrice($post->price);
+        $foodEntity->setId($post['id']);
+        $foodEntity->setRestaurantId($post['restaurant_id']);
+        $foodEntity->setName($post['name']);
+        $foodEntity->setDetail($post['detail']);
+        $foodEntity->setImg($post['img']);
+        $foodEntity->setPrice($post['price']);
 
         return $foodEntity;
     }

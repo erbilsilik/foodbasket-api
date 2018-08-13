@@ -5,10 +5,10 @@ namespace App\Http\Entity;
 class CustomerAddressEntity
 {
     public $id;
-    public $userId;
-    public $postCode;
+    public $user_id;
+    public $postcode;
     public $adress;
-    public $createdAt;
+    public $created_at;
 
     /**
      * @return mixed
@@ -31,31 +31,31 @@ class CustomerAddressEntity
      */
     public function getUserId()
     {
-        return $this->userId;
+        return $this->user_id;
     }
 
     /**
-     * @param mixed $userId
+     * @param mixed $user_id
      */
-    public function setUserId($userId): void
+    public function setUserId($user_id): void
     {
-        $this->userId = $userId;
+        $this->user_id = $user_id;
     }
 
     /**
      * @return mixed
      */
-    public function getPostCode()
+    public function getPostcode()
     {
-        return $this->postCode;
+        return $this->postcode;
     }
 
     /**
-     * @param mixed $postCode
+     * @param mixed $postcode
      */
-    public function setPostCode($postCode): void
+    public function setPostcode($postcode): void
     {
-        $this->postCode = $postCode;
+        $this->postcode = $postcode;
     }
 
     /**
@@ -79,14 +79,15 @@ class CustomerAddressEntity
      */
     public function getCreatedAt()
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
     /**
-     * @param mixed $createdAt
+     * @param mixed $created_at
      */
-    public function setCreatedAt($createdAt): void
+    public function setCreatedAt($created_at): void
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
     }
+
 }

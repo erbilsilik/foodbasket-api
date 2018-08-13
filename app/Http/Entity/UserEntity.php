@@ -3,13 +3,13 @@
 class UserEntity
 {
     public $id;
-    public $firstName;
-    public $lastName;
+    public $first_name;
+    public $last_name;
     public $email;
-    public $phoneNumber;
-    public $accessType;
+    public $phone_number;
+    public $access_type;
     public $status;
-    public $createdAt;
+    public $created_at;
 
     /**
      * @return mixed
@@ -32,15 +32,15 @@ class UserEntity
      */
     public function getFirstName()
     {
-        return $this->firstName;
+        return $this->first_name;
     }
 
     /**
-     * @param mixed $firstName
+     * @param mixed $first_name
      */
-    public function setFirstName($firstName): void
+    public function setFirstName($first_name): void
     {
-        $this->firstName = $firstName;
+        $this->first_name = $first_name;
     }
 
     /**
@@ -48,15 +48,15 @@ class UserEntity
      */
     public function getLastName()
     {
-        return $this->lastName;
+        return $this->last_name;
     }
 
     /**
-     * @param mixed $lastName
+     * @param mixed $last_name
      */
-    public function setLastName($lastName): void
+    public function setLastName($last_name): void
     {
-        $this->lastName = $lastName;
+        $this->last_name = $last_name;
     }
 
     /**
@@ -80,15 +80,15 @@ class UserEntity
      */
     public function getPhoneNumber()
     {
-        return $this->phoneNumber;
+        return $this->phone_number;
     }
 
     /**
-     * @param mixed $phoneNumber
+     * @param mixed $phone_number
      */
-    public function setPhoneNumber($phoneNumber): void
+    public function setPhoneNumber($phone_number): void
     {
-        $this->phoneNumber = $phoneNumber;
+        $this->phone_number = $phone_number;
     }
 
     /**
@@ -96,15 +96,15 @@ class UserEntity
      */
     public function getAccessType()
     {
-        return $this->accessType;
+        return $this->access_type;
     }
 
     /**
-     * @param mixed $accessType
+     * @param mixed $access_type
      */
-    public function setAccessType($accessType): void
+    public function setAccessType($access_type): void
     {
-        $this->accessType = $accessType;
+        $this->access_type = $access_type;
     }
 
     /**
@@ -128,14 +128,15 @@ class UserEntity
      */
     public function getCreatedAt()
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
     /**
-     * @param mixed $createdAt
+     * @param mixed $created_at
      */
-    public function setCreatedAt($createdAt): void
+    public function setCreatedAt($created_at): void
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
     }
+
 }

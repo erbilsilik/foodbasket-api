@@ -5,12 +5,12 @@ namespace App\Http\Entity;
 class RestaurantWorkingDayEntity
 {
     public $id;
-    public $restaurantId;
-    public $weekDay;
-    public $startHours;
-    public $endHours;
+    public $restaurant_id;
+    public $week_day;
+    public $start_hours;
+    public $end_hours;
     public $status;
-    public $createdAt;
+    public $created_at;
 
     /**
      * @return mixed
@@ -33,15 +33,15 @@ class RestaurantWorkingDayEntity
      */
     public function getRestaurantId()
     {
-        return $this->restaurantId;
+        return $this->restaurant_id;
     }
 
     /**
-     * @param mixed $restaurantId
+     * @param mixed $restaurant_id
      */
-    public function setRestaurantId($restaurantId): void
+    public function setRestaurantId($restaurant_id): void
     {
-        $this->restaurantId = $restaurantId;
+        $this->restaurant_id = $restaurant_id;
     }
 
     /**
@@ -49,15 +49,15 @@ class RestaurantWorkingDayEntity
      */
     public function getWeekDay()
     {
-        return $this->weekDay;
+        return $this->week_day;
     }
 
     /**
-     * @param mixed $weekDay
+     * @param mixed $week_day
      */
-    public function setWeekDay($weekDay): void
+    public function setWeekDay($week_day): void
     {
-        $this->weekDay = $weekDay;
+        $this->week_day = $week_day;
     }
 
     /**
@@ -65,15 +65,15 @@ class RestaurantWorkingDayEntity
      */
     public function getStartHours()
     {
-        return $this->startHours;
+        return $this->start_hours;
     }
 
     /**
-     * @param mixed $startHours
+     * @param mixed $start_hours
      */
-    public function setStartHours($startHours): void
+    public function setStartHours($start_hours): void
     {
-        $this->startHours = $startHours;
+        $this->start_hours = $start_hours;
     }
 
     /**
@@ -81,15 +81,15 @@ class RestaurantWorkingDayEntity
      */
     public function getEndHours()
     {
-        return $this->endHours;
+        return $this->end_hours;
     }
 
     /**
-     * @param mixed $endHours
+     * @param mixed $end_hours
      */
-    public function setEndHours($endHours): void
+    public function setEndHours($end_hours): void
     {
-        $this->endHours = $endHours;
+        $this->end_hours = $end_hours;
     }
 
     /**
@@ -113,14 +113,15 @@ class RestaurantWorkingDayEntity
      */
     public function getCreatedAt()
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
     /**
-     * @param mixed $createdAt
+     * @param mixed $created_at
      */
-    public function setCreatedAt($createdAt): void
+    public function setCreatedAt($created_at): void
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
     }
+
 }

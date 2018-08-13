@@ -24,7 +24,7 @@ class OrderManager implements ManagerInterface
 
     public function addOrder($data, $userId)
     {
-        $managerMapExternal = $this->mapExternal($data);
+        $managerMapExternal = (array) $this->mapExternal($data);
 
         return Order::with('users')
             ->where('user_id', $userId)
@@ -34,7 +34,7 @@ class OrderManager implements ManagerInterface
     public function updateOrder($id, $data)
     {
         $order = Order::findOrFail($id);
-        $managerMap = $this->map($data);
+        $managerMap = (array) $this->map($data);
         $order->update($managerMap);
 
         return $order;
@@ -49,11 +49,11 @@ class OrderManager implements ManagerInterface
     public function map($db)
     {
         $orderEntity = new OrderEntity();
-        $orderEntity->setId($db->id);
-        $orderEntity->setUserId($db->user_id);
-        $orderEntity->setCustomerAdressId($db->customer_adress_id);
-        $orderEntity->setRestaurantId($db->restaurant_id);
-        $orderEntity->setStatus($db->status);
+        $orderEntity->setId($db['id']);
+        $orderEntity->setUserId($db['user_id']);
+        $orderEntity->setCustomerAdressId($db['customer_address_id']);
+        $orderEntity->setRestaurantId($db['restaurant_id']);
+        $orderEntity->setStatus($db['status']);
 
         return $orderEntity;
     }
@@ -61,11 +61,11 @@ class OrderManager implements ManagerInterface
     public function mapExternal($post)
     {
         $orderEntity = new OrderEntity();
-        $orderEntity->setId($post->id);
-        $orderEntity->setUserId($post->user_id);
-        $orderEntity->setCustomerAdressId($post->customer_adress_id);
-        $orderEntity->setRestaurantId($post->restaurant_id);
-        $orderEntity->setStatus($post->status);
+        $orderEntity->setId($post['id']);
+        $orderEntity->setUserId($post['user_id']);
+        $orderEntity->setCustomerAdressId($post['customer_address_id']);
+        $orderEntity->setRestaurantId($post['restaurant_id']);
+        $orderEntity->setStatus($post['status']);
 
         return $orderEntity;
     }

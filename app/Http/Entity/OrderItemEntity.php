@@ -5,11 +5,11 @@ namespace App\Http\Entity;
 class OrderItemEntity
 {
     public $id;
-    public $foodId;
-    public $orderId;
+    public $food_id;
+    public $order_id;
     public $amount;
     public $price;
-    public $createdAt;
+    public $created_at;
 
     /**
      * @return mixed
@@ -32,15 +32,15 @@ class OrderItemEntity
      */
     public function getFoodId()
     {
-        return $this->foodId;
+        return $this->food_id;
     }
 
     /**
-     * @param mixed $foodId
+     * @param mixed $food_id
      */
-    public function setFoodId($foodId): void
+    public function setFoodId($food_id): void
     {
-        $this->foodId = $foodId;
+        $this->food_id = $food_id;
     }
 
     /**
@@ -48,15 +48,15 @@ class OrderItemEntity
      */
     public function getOrderId()
     {
-        return $this->orderId;
+        return $this->order_id;
     }
 
     /**
-     * @param mixed $orderId
+     * @param mixed $order_id
      */
-    public function setOrderId($orderId): void
+    public function setOrderId($order_id): void
     {
-        $this->orderId = $orderId;
+        $this->order_id = $order_id;
     }
 
     /**
@@ -96,14 +96,15 @@ class OrderItemEntity
      */
     public function getCreatedAt()
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
     /**
-     * @param mixed $createdAt
+     * @param mixed $created_at
      */
-    public function setCreatedAt($createdAt): void
+    public function setCreatedAt($created_at): void
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
     }
+
 }
