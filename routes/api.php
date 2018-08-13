@@ -17,12 +17,13 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-
-//Authentication
 Route::post('register', 'Auth\RegisterController@register');
 Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout');
-
+Route::group(['middleware' => ['jwt.auth']], function() {
+    Route::get('logout', 'Auth\LoginController@logout');
+    Route::post('refresh', 'Auth\LoginController@refresh');
+    Route::get('me', 'Auth\LoginController@me');
+});
 //Search
 Route::get('restaurant-search', 'RestaurantController@searchRestaurants');
 
