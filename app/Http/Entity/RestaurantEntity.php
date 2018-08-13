@@ -8,8 +8,12 @@ class RestaurantEntity
     public $name;
     public $description;
     public $email;
-    public $webPage;
+    public $postcode;
+    public $longitude;
+    public $latitude;
+    public $web_page;
     public $type;
+    public $created_at;
 
     /**
      * @return mixed
@@ -22,7 +26,7 @@ class RestaurantEntity
     /**
      * @param mixed $id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
@@ -38,7 +42,7 @@ class RestaurantEntity
     /**
      * @param mixed $name
      */
-    public function setName($name)
+    public function setName($name): void
     {
         $this->name = $name;
     }
@@ -54,7 +58,7 @@ class RestaurantEntity
     /**
      * @param mixed $description
      */
-    public function setDescription($description)
+    public function setDescription($description): void
     {
         $this->description = $description;
     }
@@ -70,7 +74,7 @@ class RestaurantEntity
     /**
      * @param mixed $email
      */
-    public function setEmail($email)
+    public function setEmail($email): void
     {
         $this->email = $email;
     }
@@ -78,17 +82,65 @@ class RestaurantEntity
     /**
      * @return mixed
      */
-    public function getWebPage()
+    public function getPostcode()
     {
-        return $this->webPage;
+        return $this->postcode;
     }
 
     /**
-     * @param mixed $webPage
+     * @param mixed $postcode
      */
-    public function setWebPage($webPage)
+    public function setPostcode($postcode): void
     {
-        $this->webPage = $webPage;
+        $this->postcode = $postcode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * @param mixed $longitude
+     */
+    public function setLongitude($longitude): void
+    {
+        $this->longitude = $longitude;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * @param mixed $latitude
+     */
+    public function setLatitude($latitude): void
+    {
+        $this->latitude = $latitude;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWebPage()
+    {
+        return $this->web_page;
+    }
+
+    /**
+     * @param mixed $web_page
+     */
+    public function setWebPage($web_page): void
+    {
+        $this->web_page = $web_page;
     }
 
     /**
@@ -102,8 +154,25 @@ class RestaurantEntity
     /**
      * @param mixed $type
      */
-    public function setType($type)
+    public function setType($type): void
     {
         $this->type = $type;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param mixed $created_at
+     */
+    public function setCreatedAt($created_at): void
+    {
+        $this->created_at = $created_at;
+    }
+
 }

@@ -9,7 +9,7 @@ use App\Restaurant;
 use App\LocationDistance;
 use DB;
 
-class RestaurantManager
+class RestaurantManager implements ManagerInterface
 {
     // methods for OWNERS
     public function getRestaurantList()
@@ -19,18 +19,23 @@ class RestaurantManager
 
     public function getRestaurantById($id)
     {
-        return Restaurant::find($id);
+        $managerMap = $this->map(Restaurant::find($id));
+
+        return $managerMap;
     }
 
     public function addRestaurant($data)
     {
-        return Restaurant::create($data);
+        $managerMapExternal = (array) $this->mapExternal($data);
+
+        return Restaurant::create($managerMapExternal);
     }
 
     public function updateRestaurant($id, $data)
     {
         $restaurant = Restaurant::findOrFail($id);
-        $restaurant->update($data);
+        $managerMap = (array) $this->map($data);
+        $restaurant->update($managerMap);
 
         return $restaurant;
     }
@@ -109,18 +114,19 @@ class RestaurantManager
         return 'No location info found!';
 
     }
-}
 
-
-/*    public function map($db)
+    public function map($db)
     {
         $restaurantEntity = new RestaurantEntity();
-        $restaurantEntity->setId($db->id);
-        $restaurantEntity->setName($db->name);
-        $restaurantEntity->setDescription($db->description);
-        $restaurantEntity->setEmail($db->email);
-        $restaurantEntity->setWebPage($db->web_page);
-        $restaurantEntity->setType($db->type);
+        $restaurantEntity->setId($db['id']);
+        $restaurantEntity->setName($db['name']);
+        $restaurantEntity->setDescription($db['description']);
+        $restaurantEntity->setEmail($db['email']);
+        $restaurantEntity->setPostcode($db['postcode']);
+        $restaurantEntity->setLongitude($db['longitude']);
+        $restaurantEntity->setLatitude($db['latitude']);
+        $restaurantEntity->setWebPage($db['web_page']);
+        $restaurantEntity->setType($db['type']);
 
         return $restaurantEntity;
     }
@@ -128,13 +134,18 @@ class RestaurantManager
     public function mapExternal($post)
     {
         $restaurantEntity = new RestaurantEntity();
-        $restaurantEntity->setId($post->id);
-        $restaurantEntity->setName(trim($post->name));
-        $restaurantEntity->setDescription(trim($post->description));
-        $restaurantEntity->setEmail(trim($post->email));
-        $restaurantEntity->setWebPage(trim($post->webPage));
+        $restaurantEntity->setId($post['id']);
+        $restaurantEntity->setName(trim($post['name']));
+        $restaurantEntity->setDescription(trim($post['description']));
+        $restaurantEntity->setEmail(trim($post['email']));
+        $restaurantEntity->setPostcode($post['postcode']);
+        $restaurantEntity->setLongitude($post['longitude']);
+        $restaurantEntity->setLatitude($post['latitude']);
+        $restaurantEntity->setWebPage(trim($post['webPage']));
         $restaurantEntity->setType($post->type);
 
         return $restaurantEntity;
     }
-*/
+}
+
+
