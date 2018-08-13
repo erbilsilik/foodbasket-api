@@ -24,10 +24,11 @@ class FoodManager implements ManagerInterface
 
     public function addFood($data, $restaurantId)
     {
-        $managerMapExternal = $this->mapExternal($data);
+        $food = $this->mapExternal($data);
+
         return Food::with('restaurants')
             ->where('restaurant_id', $restaurantId)
-            ->create($managerMapExternal);
+            ->create($food);
     }
 
     public function updateFood($id, $data)

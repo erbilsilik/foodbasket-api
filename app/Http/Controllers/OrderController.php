@@ -18,8 +18,7 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illu        $food = Food::findOrFail($id);
-minate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function index($userId)
     {
