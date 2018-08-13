@@ -11,6 +11,7 @@ class LocationPostCodeEntity
     public $minPrice;
     public $maxPrice;
     public $normalPrice;
+    public $createdAt;
 
     /**
      * @return mixed
@@ -124,4 +125,19 @@ class LocationPostCodeEntity
         $this->normalPrice = $normalPrice;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
 }

@@ -19,21 +19,23 @@ class RestaurantManager implements ManagerInterface
 
     public function getRestaurantById($id)
     {
-        return Restaurant::find($id);
+        $managerMap = $this->map(Restaurant::find($id));
+
+        return $managerMap;
     }
 
     public function addRestaurant($data)
     {
-        $Entity = $this->mapExternal($data);
+        $managerMapExternal = $this->mapExternal($data);
 
-        return Restaurant::create($Entity);
+        return Restaurant::create($managerMapExternal);
     }
 
     public function updateRestaurant($id, $data)
     {
         $restaurant = Restaurant::findOrFail($id);
-        $Entity = $this->map($data);
-        $restaurant->update($Entity);
+        $managerMap = $this->map($data);
+        $restaurant->update($managerMap);
 
         return $restaurant;
     }
@@ -120,6 +122,9 @@ class RestaurantManager implements ManagerInterface
         $restaurantEntity->setName($db->name);
         $restaurantEntity->setDescription($db->description);
         $restaurantEntity->setEmail($db->email);
+        $restaurantEntity->setPostcode($db->postcode);
+        $restaurantEntity->setLongitude($db->longitude);
+        $restaurantEntity->setLatitude($db->latitude);
         $restaurantEntity->setWebPage($db->web_page);
         $restaurantEntity->setType($db->type);
 
@@ -133,6 +138,9 @@ class RestaurantManager implements ManagerInterface
         $restaurantEntity->setName(trim($post->name));
         $restaurantEntity->setDescription(trim($post->description));
         $restaurantEntity->setEmail(trim($post->email));
+        $restaurantEntity->setPostcode($post->postcode);
+        $restaurantEntity->setLongitude($post->longitude);
+        $restaurantEntity->setLatitude($post->latitude);
         $restaurantEntity->setWebPage(trim($post->webPage));
         $restaurantEntity->setType($post->type);
 

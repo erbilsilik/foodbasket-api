@@ -9,6 +9,7 @@ class UserEntity
     public $phoneNumber;
     public $accessType;
     public $status;
+    public $createdAt;
 
     /**
      * @return mixed
@@ -122,5 +123,19 @@ class UserEntity
         $this->status = $status;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
 
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
 }

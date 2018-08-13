@@ -9,6 +9,7 @@ class OrderItemEntity
     public $orderId;
     public $amount;
     public $price;
+    public $createdAt;
 
     /**
      * @return mixed
@@ -90,4 +91,19 @@ class OrderItemEntity
         $this->price = $price;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
 }

@@ -7,6 +7,8 @@ class CustomerAddressEntity
     public $id;
     public $userId;
     public $postCode;
+    public $adress;
+    public $createdAt;
 
     /**
      * @return mixed
@@ -71,7 +73,20 @@ class CustomerAddressEntity
     {
         $this->adress = $adress;
     }
-    public $adress;
 
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
 
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
 }

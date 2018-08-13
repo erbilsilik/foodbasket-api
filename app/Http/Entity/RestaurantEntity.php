@@ -13,6 +13,7 @@ class RestaurantEntity
     public $latitude;
     public $webPage;
     public $type;
+    public $createdAt;
 
     /**
      * @return mixed
@@ -25,7 +26,7 @@ class RestaurantEntity
     /**
      * @param mixed $id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
@@ -41,7 +42,7 @@ class RestaurantEntity
     /**
      * @param mixed $name
      */
-    public function setName($name)
+    public function setName($name): void
     {
         $this->name = $name;
     }
@@ -57,7 +58,7 @@ class RestaurantEntity
     /**
      * @param mixed $description
      */
-    public function setDescription($description)
+    public function setDescription($description): void
     {
         $this->description = $description;
     }
@@ -73,11 +74,10 @@ class RestaurantEntity
     /**
      * @param mixed $email
      */
-    public function setEmail($email)
+    public function setEmail($email): void
     {
         $this->email = $email;
     }
-
 
     /**
      * @return mixed
@@ -90,7 +90,7 @@ class RestaurantEntity
     /**
      * @param mixed $postcode
      */
-    public function setPostcode($postcode)
+    public function setPostcode($postcode): void
     {
         $this->postcode = $postcode;
     }
@@ -106,7 +106,7 @@ class RestaurantEntity
     /**
      * @param mixed $longitude
      */
-    public function setLongitude($longitude)
+    public function setLongitude($longitude): void
     {
         $this->longitude = $longitude;
     }
@@ -114,17 +114,17 @@ class RestaurantEntity
     /**
      * @return mixed
      */
-    public function getLatidute()
+    public function getLatitude()
     {
         return $this->latitude;
     }
 
     /**
-     * @param mixed $latidute
+     * @param mixed $latitude
      */
-    public function setLatidute($latidute)
+    public function setLatitude($latitude): void
     {
-        $this->latitude = $latidute;
+        $this->latitude = $latitude;
     }
 
     /**
@@ -138,7 +138,7 @@ class RestaurantEntity
     /**
      * @param mixed $webPage
      */
-    public function setWebPage($webPage)
+    public function setWebPage($webPage): void
     {
         $this->webPage = $webPage;
     }
@@ -154,8 +154,24 @@ class RestaurantEntity
     /**
      * @param mixed $type
      */
-    public function setType($type)
+    public function setType($type): void
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt): void
+    {
+        $this->createdAt = $createdAt;
     }
 }

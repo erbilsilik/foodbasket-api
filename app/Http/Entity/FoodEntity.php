@@ -10,6 +10,7 @@ class FoodEntity
     public $detail;
     public $img;
     public $price;
+    public $createdAt;
 
     /**
      * @return mixed
@@ -107,5 +108,19 @@ class FoodEntity
         $this->price = $price;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
 
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
 }
