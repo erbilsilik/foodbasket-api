@@ -125,7 +125,7 @@ class RestaurantManager implements ManagerInterface
         $restaurantEntity->setPostcode($db['postcode']);
         $restaurantEntity->setLongitude($db['longitude']);
         $restaurantEntity->setLatitude($db['latitude']);
-        $restaurantEntity->setWebPage($db['web_page']);
+        $restaurantEntity->setWebPage($db['webPage']);
         $restaurantEntity->setType($db['type']);
 
         return $restaurantEntity;

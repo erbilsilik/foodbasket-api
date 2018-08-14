@@ -50,7 +50,7 @@ class FoodManager implements ManagerInterface
     {
         $foodEntity = new FoodEntity();
         $foodEntity->setId($db['id']);
-        $foodEntity->setRestaurantId($db['restaurant_id']);
+        $foodEntity->setRestaurantId($db['restaurantId']);
         $foodEntity->setName($db['name']);
         $foodEntity->setDetail($db['detail']);
         $foodEntity->setImg($db['img']);
@@ -63,7 +63,7 @@ class FoodManager implements ManagerInterface
     {
         $foodEntity = new FoodEntity();
         $foodEntity->setId($post['id']);
-        $foodEntity->setRestaurantId($post['restaurant_id']);
+        $foodEntity->setRestaurantId($post['restaurantId']);
         $foodEntity->setName($post['name']);
         $foodEntity->setDetail($post['detail']);
         $foodEntity->setImg($post['img']);

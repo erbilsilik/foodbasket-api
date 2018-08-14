@@ -50,9 +50,9 @@ class OrderManager implements ManagerInterface
     {
         $orderEntity = new OrderEntity();
         $orderEntity->setId($db['id']);
-        $orderEntity->setUserId($db['user_id']);
-        $orderEntity->setCustomerAdressId($db['customer_address_id']);
-        $orderEntity->setRestaurantId($db['restaurant_id']);
+        $orderEntity->setUserId($db['userId']);
+        $orderEntity->setCustomerAdressId($db['customerAddressId']);
+        $orderEntity->setRestaurantId($db['restaurantId']);
         $orderEntity->setStatus($db['status']);
 
         return $orderEntity;
@@ -62,9 +62,9 @@ class OrderManager implements ManagerInterface
     {
         $orderEntity = new OrderEntity();
         $orderEntity->setId($post['id']);
-        $orderEntity->setUserId($post['user_id']);
-        $orderEntity->setCustomerAdressId($post['customer_address_id']);
-        $orderEntity->setRestaurantId($post['restaurant_id']);
+        $orderEntity->setUserId($post['userId']);
+        $orderEntity->setCustomerAdressId($post['customerAddressId']);
+        $orderEntity->setRestaurantId($post['restaurantId']);
         $orderEntity->setStatus($post['status']);
 
         return $orderEntity;
