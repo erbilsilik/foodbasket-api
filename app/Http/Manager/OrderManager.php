@@ -2,10 +2,11 @@
 
 namespace App\Http\Manager;
 
+use App\Http\Entity\OrderEntity;
 use App\Order;
 use App\Restaurant;
 
-class OrderManager
+class OrderManager implements ManagerInterface
 {
     // methods for Order List
 
@@ -23,15 +24,18 @@ class OrderManager
 
     public function addOrder($data, $userId)
     {
+        $managerMapExternal = (array) $this->mapExternal($data);
+
         return Order::with('users')
             ->where('user_id', $userId)
-            ->create($data);
+            ->create($managerMapExternal);
     }
 
     public function updateOrder($id, $data)
     {
         $order = Order::findOrFail($id);
-        $order->update($data);
+        $managerMap = (array) $this->map($data);
+        $order->update($managerMap);
 
         return $order;
     }
@@ -40,5 +44,29 @@ class OrderManager
     {
         $order = Order::findOrFail($id);
         $order->delete();
+    }
+
+    public function map($db)
+    {
+        $orderEntity = new OrderEntity();
+        $orderEntity->setId($db['id']);
+        $orderEntity->setUserId($db['userId']);
+        $orderEntity->setCustomerAdressId($db['customerAddressId']);
+        $orderEntity->setRestaurantId($db['restaurantId']);
+        $orderEntity->setStatus($db['status']);
+
+        return $orderEntity;
+    }
+
+    public function mapExternal($post)
+    {
+        $orderEntity = new OrderEntity();
+        $orderEntity->setId($post['id']);
+        $orderEntity->setUserId($post['userId']);
+        $orderEntity->setCustomerAdressId($post['customerAddressId']);
+        $orderEntity->setRestaurantId($post['restaurantId']);
+        $orderEntity->setStatus($post['status']);
+
+        return $orderEntity;
     }
 }
