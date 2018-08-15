@@ -79,9 +79,9 @@ class RestaurantManager implements ManagerInterface
             foreach ($locationPostcodes as $locationPostCode) {
                 $restaurants[$i]['restaurant'] = Restaurant::find($locationPostCode->restaurant_id);
                 $location = LocationPostCode::find($locationPostCode->id);
-                $restaurants[$i]['min_price'] = $location->min_price;
-                $restaurants[$i]['rise_price'] = $location->rise_price;
-                $restaurants[$i]['normal_price'] = $location->normal_price;
+                $restaurants[$i]['minPrice'] = $location->min_price;
+                $restaurants[$i]['risePrice'] = $location->rise_price;
+                $restaurants[$i]['normalPrice'] = $location->normal_price;
                 $i++;
             }
 
@@ -100,9 +100,9 @@ class RestaurantManager implements ManagerInterface
                         array_push($rest, $realDistance->restaurant_id);
                         $restaurants[$i]['restaurant'] = Restaurant::find($realDistance->restaurant_id);
                         $location = LocationDistance::find($realDistance->id);
-                        $restaurants[$i]['min_price'] = $location->min_price;
-                        $restaurants[$i]['rise_price'] = $location->rise_price;
-                        $restaurants[$i]['normal_price'] = $location->normal_price;
+                        $restaurants[$i]['minPrice'] = $location->min_price;
+                        $restaurants[$i]['risePrice'] = $location->rise_price;
+                        $restaurants[$i]['normalPrice'] = $location->normal_price;
                         $i++;
                     }
                 }

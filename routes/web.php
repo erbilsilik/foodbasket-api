@@ -18,3 +18,17 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::group(['namespace' => 'MasterAdmin', 'prefix' => 'admin'], function () {
+    Route::get('/login','LoginController@loginIndex');
+    Route::post('/login','LoginController@postLogin');
+});
+
+
+Route::group(['namespace' => 'MasterAdmin', 'prefix' => 'admin', 'middleware' => 'check.owner'], function () {
+    Route::get('/','HomeController@homeIndex');
+    Route::get('/restaurants','RestaurantController@allRestaurantsIndex');
+    Route::get('/add-restaurant','RestaurantController@addRestaurantsIndex');
+    Route::post('/add-restaurant','RestaurantController@addRestaurantsPost');
+});
