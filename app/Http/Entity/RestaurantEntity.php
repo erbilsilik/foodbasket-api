@@ -7,10 +7,12 @@ class RestaurantEntity
     public $id;
     public $name;
     public $description;
-    public $email;
+    public $address;
+    public $comission;
     public $postcode;
     public $longitude;
     public $latitude;
+    public $user_id;
     public $web_page;
     public $type;
     public $created_at;
@@ -66,17 +68,33 @@ class RestaurantEntity
     /**
      * @return mixed
      */
-    public function getEmail()
+    public function getAddress()
     {
-        return $this->email;
+        return $this->address;
     }
 
     /**
-     * @param mixed $email
+     * @param mixed $address
      */
-    public function setEmail($email): void
+    public function setAddress($address): void
     {
-        $this->email = $email;
+        $this->address = $address;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComission()
+    {
+        return $this->comission;
+    }
+
+    /**
+     * @param mixed $comission
+     */
+    public function setComission($comission): void
+    {
+        $this->comission = $comission;
     }
 
     /**
@@ -125,6 +143,22 @@ class RestaurantEntity
     public function setLatitude($latitude): void
     {
         $this->latitude = $latitude;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * @param mixed $user_id
+     */
+    public function setUserId($user_id): void
+    {
+        $this->user_id = $user_id;
     }
 
     /**

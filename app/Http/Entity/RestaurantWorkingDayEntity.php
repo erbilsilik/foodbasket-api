@@ -7,9 +7,8 @@ class RestaurantWorkingDayEntity
     public $id;
     public $restaurant_id;
     public $week_day;
-    public $start_hours;
-    public $end_hours;
-    public $status;
+    public $hour;
+    public $type;
     public $created_at;
 
     /**
@@ -63,49 +62,33 @@ class RestaurantWorkingDayEntity
     /**
      * @return mixed
      */
-    public function getStartHours()
+    public function getHour()
     {
-        return $this->start_hours;
+        return $this->hour;
     }
 
     /**
-     * @param mixed $start_hours
+     * @param mixed $hour
      */
-    public function setStartHours($start_hours): void
+    public function setHour($hour): void
     {
-        $this->start_hours = $start_hours;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEndHours()
-    {
-        return $this->end_hours;
-    }
-
-    /**
-     * @param mixed $end_hours
-     */
-    public function setEndHours($end_hours): void
-    {
-        $this->end_hours = $end_hours;
+        $this->hour = $hour;
     }
 
     /**
      * @return mixed
      */
-    public function getStatus()
+    public function getType()
     {
-        return $this->status;
+        return $this->type;
     }
 
     /**
-     * @param mixed $status
+     * @param mixed $type
      */
-    public function setStatus($status): void
+    public function setType($type): void
     {
-        $this->status = $status;
+        $this->type = $type;
     }
 
     /**

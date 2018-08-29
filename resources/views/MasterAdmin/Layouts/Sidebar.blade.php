@@ -26,7 +26,7 @@
         </a>
     </li>
     <li class="selected">
-        <a href="index.html">
+        <a href="{{ url('/admin/restaurants') }}">
             <div class="icon-w">
                 <div class="os-icon os-icon-life-buoy"></div>
             </div>

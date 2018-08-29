@@ -121,10 +121,12 @@ class RestaurantManager implements ManagerInterface
         $restaurantEntity->setId($db['id']);
         $restaurantEntity->setName($db['name']);
         $restaurantEntity->setDescription($db['description']);
-        $restaurantEntity->setEmail($db['email']);
         $restaurantEntity->setPostcode($db['postcode']);
         $restaurantEntity->setLongitude($db['longitude']);
         $restaurantEntity->setLatitude($db['latitude']);
+        $restaurantEntity->setAddress($db['adress']);
+        $restaurantEntity->setComission($db['comission']);
+        $restaurantEntity->setUserId($db['userId']);
         $restaurantEntity->setWebPage($db['webPage']);
         $restaurantEntity->setType($db['type']);
 
@@ -137,12 +139,14 @@ class RestaurantManager implements ManagerInterface
         $restaurantEntity->setId($post['id']);
         $restaurantEntity->setName(trim($post['name']));
         $restaurantEntity->setDescription(trim($post['description']));
-        $restaurantEntity->setEmail(trim($post['email']));
         $restaurantEntity->setPostcode($post['postcode']);
         $restaurantEntity->setLongitude($post['longitude']);
         $restaurantEntity->setLatitude($post['latitude']);
+        $restaurantEntity->setAddress($post['adress']);
+        $restaurantEntity->setComission($post['comission']);
+        $restaurantEntity->setUserId($post['userId']);
         $restaurantEntity->setWebPage(trim($post['webPage']));
-        $restaurantEntity->setType($post->type);
+        $restaurantEntity->setType($post['type']);
 
         return $restaurantEntity;
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Manager\Api\FoodManager;
 use App\Restaurant;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class FoodController extends Controller
 {

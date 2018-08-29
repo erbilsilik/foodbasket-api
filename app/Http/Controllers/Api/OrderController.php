@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Order;
 use App\Http\Manager\OrderManager;
+use App\Http\Controllers\Controller;
+
 
 class OrderController extends Controller
 {

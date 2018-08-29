@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Entity;
+
 class UserEntity
 {
     public $id;
@@ -9,6 +11,7 @@ class UserEntity
     public $phone_number;
     public $access_type;
     public $status;
+    public $password;
     public $created_at;
 
     /**
@@ -121,6 +124,22 @@ class UserEntity
     public function setStatus($status): void
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password): void
+    {
+        $this->password = $password;
     }
 
     /**

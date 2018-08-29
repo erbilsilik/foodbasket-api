@@ -16,15 +16,15 @@ use Illuminate\Http\Request;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-
-
 Route::group(['namespace' => 'Api'], (function () {
 
-    //Authentication
     Route::post('register', 'Auth\RegisterController@register');
     Route::post('login', 'Auth\LoginController@login');
-    Route::post('logout', 'Auth\LoginController@logout');
-
+    Route::group(['middleware' => ['jwt.auth']], function() {
+        Route::get('logout', 'Auth\LoginController@logout');
+        Route::post('refresh', 'Auth\LoginController@refresh');
+        Route::get('me', 'Auth\LoginController@me');
+    });
     //Search
     Route::get('restaurant-search', 'RestaurantController@searchRestaurants');
 

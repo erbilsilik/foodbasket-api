@@ -62,5 +62,7 @@ class Kernel extends HttpKernel
         'check.owner' => \App\Http\Middleware\CheckOwner::class,
         'check.customer' => \App\Http\Middleware\CheckCustomer::class,
         'check.restaurant.owner' => \App\Http\Middleware\CheckRestaurantOwner::class,
+        'jwt.auth' => 'Tymon\JWTAuth\Middleware\GetUserFromToken',
+        'jwt.refresh' => 'Tymon\JWTAuth\Middleware\RefreshToken',
     ];
 }

@@ -137,11 +137,11 @@
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <label class="control-label">Restaurant Name</label>
-                                            <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter First Name" name="restaurant_name"/>
+                                            <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter Name" name="name"/>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Restaurant Type</label>
-                                            <select class="form-control" onchange="yesnoCheck(this);" name="restaurant_type">
+                                            <select class="form-control" onchange="yesnoCheck(this);" name="type">
                                                 <option>--</option>
                                                 <option value="0">Comission</option>
                                                 <option value="1">Week</option>
@@ -151,7 +151,7 @@
                                         </div>
                                         <div id="ifYes" class="form-group" style="display: none;">
                                             <label class="control-label">Restaurant Comission</label>
-                                            <input maxlength="100" type="number" class="form-control" placeholder="Enter Comission ( % )" name="restaurant_comission"/>
+                                            <input maxlength="100" type="number" class="form-control" placeholder="Enter Comission ( % )" name="comission"/>
                                         </div>
 
 
@@ -167,11 +167,15 @@
 
                                         <div class="form-group">
                                             <label class="control-label">Restaurant Adress</label>
-                                            <textarea class="form-control" rows="5" name="restaurant_adress"></textarea>
+                                            <textarea class="form-control" rows="5" name="adress"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Restaurant Post Code</label>
-                                           <input type="text" class="form-control"name="restaurant_postcode" />
+                                           <input type="text" class="form-control"name="postcode" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Restaurant Description</label>
+                                            <textarea class="form-control" rows="5" name="description" ></textarea>
                                         </div>
                                         <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
                                     </div>
@@ -182,32 +186,33 @@
                                     </div>
                                     <div class="panel-body">
                                         <div class="form-group">
-                                            <label class="control-label">Restaurant Owner Name & Surname</label>
-                                            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Restaurant Owner Name" name="restaurant_owner_name"/>
+                                            <label class="control-label">Restaurant Owner Name</label>
+                                            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Restaurant Owner Name" name="firstName"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Restaurant Owner Surname</label>
+                                            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Restaurant Owner Surname" name="lastName"/>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Restaurant Register Email</label>
-                                            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Restaurant Register Email" name="restaurant_email"/>
+                                            <input maxlength="200" type="email" required="required" class="form-control" placeholder="Restaurant Register Email" name="email"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Restaurant Register Phone Number</label>
+                                            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Restaurant Register Phone Number" name="phoneNumber"/>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label">Restaurant Register Password</label>
-                                                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Restaurant Register Password" name="restaurant_password"/>
+                                                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Restaurant Register Password" name="restaurant_owner_password"/>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label">Restaurant Register Password Again</label>
-                                                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Restaurant Register Password Again" name="restaurant_password_again"/>
+                                                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Restaurant Register Password Again" name="password"/>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label">Restaurant Nots</label>
-                                            <textarea class="form-control" rows="5" name="restaurant_nots" ></textarea>
-                                        </div>
-
-
-
                                         <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
                                     </div>
                                 </div>
@@ -271,16 +276,7 @@
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <label class="control-label">Company Web Site</label>
-                                            <input maxlength="200" type="text" required="required" class="form-control" name="restaurant_website" placeholder="Enter Company Name" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label">Company Page Dizayn</label>
-                                            <select class="form-control" name="restaurant_website_dizayn">
-                                                <option value="0">Büyük </option>
-                                                <option value="1">Küçük </option>
-                                                <option value="2">Orta </option>
-                                                <option value="3">son</option>
-                                            </select>
+                                            <input maxlength="200" type="text" required="required" class="form-control" name="webPage" placeholder="Enter Company Name" />
                                         </div>
                                         <button class="btn btn-success pull-right" type="submit">Finish!</button>
                                     </div>
