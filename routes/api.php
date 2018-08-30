@@ -45,7 +45,7 @@ Route::group(['middleware' => 'check.restaurant.owner'], (function () {
 
     //Orders
     Route::get('{userId}/orders', 'OrderController@index');
-    Route::post('{userId}/orders', 'OrderController@store');
+    Route::post('orders', 'OrderController@store');
     Route::delete('orders/{id}', 'OrderController@destroy');
     Route::put('orders/{id}', 'OrderController@update');
 

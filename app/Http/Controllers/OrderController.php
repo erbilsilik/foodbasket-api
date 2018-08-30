@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreOrder;
 use Illuminate\Http\Request;
 use App\Order;
 use App\Http\Manager\OrderManager;
+use Illuminate\Session\Store;
 
 class OrderController extends Controller
 {
@@ -27,15 +29,15 @@ class OrderController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param StoreOrder $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request, $userId)
+    public function store(StoreOrder $request)
     {
-//        var_dump($request->all());
-        return $this->orderManager->addOrder($request->all(), $userId);
+        $order = $request->all();
+        $this->orderManager->addOrder($order);
+
+        return response()->json($order, 201);
     }
 
     /**

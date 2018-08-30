@@ -27,6 +27,6 @@ services:
       POSTGRES_DB: foodbasket
       POSTGRES_PASSWORD: 1111
     volumes:
-      - .Data:/var/lib/postgresql/data
+      - ../.Data:/var/lib/postgresql/data
     ports:
       - 3306:5432
