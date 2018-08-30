@@ -29,10 +29,10 @@ $factory->define(App\User::class, function (Faker $faker) {
 $factory->define(\App\Restaurant::class, function (Faker $faker) {
     return [
         'name' => $faker->company,
-        'email' => $faker->companyEmail,
         'postcode' => $faker->randomElement(["OX49 5NU", "M32 0JG", "NE30 1DP"]),
         'longitude' => $faker->randomElement(["-1.069752", "-2.302836", "-1.439269"]),
         'latitude' => $faker->randomElement(["51.655929", "53.455654", "55.011303"]),
+        'address' => $faker->address,
 
         'user_id' => function () {
             return factory(\App\User::class)->create()->id;
@@ -73,10 +73,9 @@ $factory->define(\App\RestaurantWorkingDay::class, function (Faker $faker) {
         'restaurant_id' => function () {
             return factory(\App\Restaurant::class)->create()->id;
         },
-        'start_hour' => 1,
-        'end_hour' => 10,
-        'week_day' => $faker->randomElement(['monday', 'sunday', 'tuesday', 'wednesday', 'friday', 'saturday', 'sunday']),
-        'status' => $faker->randomElement(['open', 'closed']),
+        'hour' => $faker->randomElement(['1', '2', '3', '4', '5', '6', '7']),
+        'week_day' => $faker->randomElement(['1', '2', '3', '4', '5', '6', '7']),
+        'type' => $faker->randomElement(['delivery', 'collection']),
     ];
 });
 

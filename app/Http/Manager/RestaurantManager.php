@@ -9,7 +9,7 @@ use App\Restaurant;
 use App\LocationDistance;
 use DB;
 
-class RestaurantManager
+class RestaurantManager implements ManagerInterface
 {
     // methods for OWNERS
     public function getRestaurantList()
@@ -19,18 +19,23 @@ class RestaurantManager
 
     public function getRestaurantById($id)
     {
-        return Restaurant::find($id);
+        $managerMap = $this->map(Restaurant::find($id));
+
+        return $managerMap;
     }
 
     public function addRestaurant($data)
     {
-        return Restaurant::create($data);
+        $managerMapExternal = (array) $this->mapExternal($data);
+
+        return Restaurant::create($managerMapExternal);
     }
 
     public function updateRestaurant($id, $data)
     {
         $restaurant = Restaurant::findOrFail($id);
-        $restaurant->update($data);
+        $managerMap = (array) $this->map($data);
+        $restaurant->update($managerMap);
 
         return $restaurant;
     }
@@ -74,9 +79,9 @@ class RestaurantManager
             foreach ($locationPostcodes as $locationPostCode) {
                 $restaurants[$i]['restaurant'] = Restaurant::find($locationPostCode->restaurant_id);
                 $location = LocationPostCode::find($locationPostCode->id);
-                $restaurants[$i]['min_price'] = $location->min_price;
-                $restaurants[$i]['rise_price'] = $location->rise_price;
-                $restaurants[$i]['normal_price'] = $location->normal_price;
+                $restaurants[$i]['minPrice'] = $location->min_price;
+                $restaurants[$i]['risePrice'] = $location->rise_price;
+                $restaurants[$i]['normalPrice'] = $location->normal_price;
                 $i++;
             }
 
@@ -95,9 +100,9 @@ class RestaurantManager
                         array_push($rest, $realDistance->restaurant_id);
                         $restaurants[$i]['restaurant'] = Restaurant::find($realDistance->restaurant_id);
                         $location = LocationDistance::find($realDistance->id);
-                        $restaurants[$i]['min_price'] = $location->min_price;
-                        $restaurants[$i]['rise_price'] = $location->rise_price;
-                        $restaurants[$i]['normal_price'] = $location->normal_price;
+                        $restaurants[$i]['minPrice'] = $location->min_price;
+                        $restaurants[$i]['risePrice'] = $location->rise_price;
+                        $restaurants[$i]['normalPrice'] = $location->normal_price;
                         $i++;
                     }
                 }
@@ -109,18 +114,21 @@ class RestaurantManager
         return 'No location info found!';
 
     }
-}
 
-
-/*    public function map($db)
+    public function map($db)
     {
         $restaurantEntity = new RestaurantEntity();
-        $restaurantEntity->setId($db->id);
-        $restaurantEntity->setName($db->name);
-        $restaurantEntity->setDescription($db->description);
-        $restaurantEntity->setEmail($db->email);
-        $restaurantEntity->setWebPage($db->web_page);
-        $restaurantEntity->setType($db->type);
+        $restaurantEntity->setId($db['id']);
+        $restaurantEntity->setName($db['name']);
+        $restaurantEntity->setDescription($db['description']);
+        $restaurantEntity->setPostcode($db['postcode']);
+        $restaurantEntity->setLongitude($db['longitude']);
+        $restaurantEntity->setLatitude($db['latitude']);
+        $restaurantEntity->setAddress($db['adress']);
+        $restaurantEntity->setComission($db['comission']);
+        $restaurantEntity->setUserId($db['userId']);
+        $restaurantEntity->setWebPage($db['webPage']);
+        $restaurantEntity->setType($db['type']);
 
         return $restaurantEntity;
     }
@@ -128,13 +136,20 @@ class RestaurantManager
     public function mapExternal($post)
     {
         $restaurantEntity = new RestaurantEntity();
-        $restaurantEntity->setId($post->id);
-        $restaurantEntity->setName(trim($post->name));
-        $restaurantEntity->setDescription(trim($post->description));
-        $restaurantEntity->setEmail(trim($post->email));
-        $restaurantEntity->setWebPage(trim($post->webPage));
-        $restaurantEntity->setType($post->type);
+        $restaurantEntity->setId($post['id']);
+        $restaurantEntity->setName(trim($post['name']));
+        $restaurantEntity->setDescription(trim($post['description']));
+        $restaurantEntity->setPostcode($post['postcode']);
+        $restaurantEntity->setLongitude($post['longitude']);
+        $restaurantEntity->setLatitude($post['latitude']);
+        $restaurantEntity->setAddress($post['adress']);
+        $restaurantEntity->setComission($post['comission']);
+        $restaurantEntity->setUserId($post['userId']);
+        $restaurantEntity->setWebPage(trim($post['webPage']));
+        $restaurantEntity->setType($post['type']);
 
         return $restaurantEntity;
     }
-*/
+}
+
+

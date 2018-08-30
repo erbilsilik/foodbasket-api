@@ -16,12 +16,11 @@ class CreateRestaurantWorkingDaysTable extends Migration
         Schema::create('restaurant_working_days', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('restaurant_id')->unsigned()->index();
-            $table->string('week_day');
-            $table->float('start_hour');
-            $table->float('end_hour');
-            $table->enum('status', [
-                'open',
-                'closed',
+            $table->integer('week_day');
+            $table->integer('hour');
+            $table->enum('type', [
+                'delivery',
+                'collection',
             ]);
             $table->timestamps();
         });

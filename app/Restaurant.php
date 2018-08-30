@@ -12,7 +12,7 @@ class Restaurant extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'description', 'postcode', 'longitude', 'latitude', 'user_id', 'web_page', 'type'
+        'name', 'description', 'postcode', 'longitude', 'latitude', 'user_id', 'web_page', 'type','address','comission'
     ];
 
     public function user()
@@ -38,5 +38,10 @@ class Restaurant extends Model
     public function foods()
     {
         return $this->hasMany('App\Food');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
     }
 }

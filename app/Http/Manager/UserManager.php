@@ -2,7 +2,11 @@
 
 namespace App\Http\Manager;
 
-class UserManager
+use App\User;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Entity\UserEntity;
+
+class UserManager implements ManagerInterface
 {
     // access types
     const ACCESS_TYPE_CUSTOMER = 'customer';
@@ -13,4 +17,41 @@ class UserManager
     const STATUS_ACTIVE = 'active';
     const STATUS_DISABLED = 'disabled';
     const STATUS_DELETED = 'deleted';
+
+    public function addUser($data)
+    {
+        $managerMapExternal = (array) $this->mapExternal($data);
+//        return $managerMapExternal;
+        return User::create($managerMapExternal);
+    }
+
+    public function map($db)
+    {
+        $userEntity = new UserEntity();
+        $userEntity->setId($db['id']);
+        $userEntity->setFirstName($db['firstName']);
+        $userEntity->setLastName($db['lastName']);
+        $userEntity->setEmail($db['email']);
+        $userEntity->setPhoneNumber($db['phoneNumber']);
+        $userEntity->setPassword(Hash::make($db['password']));
+        $userEntity->setAccessType($db['accessType']);
+        $userEntity->setStatus($db['status']);
+
+        return $userEntity;
+    }
+
+    public function mapExternal($post)
+    {
+        $userEntity = new UserEntity();
+        $userEntity->setId($post['id']);
+        $userEntity->setFirstName($post['firstName']);
+        $userEntity->setLastName($post['lastName']);
+        $userEntity->setEmail($post['email']);
+        $userEntity->setPhoneNumber($post['phoneNumber']);
+        $userEntity->setPassword(Hash::make($post['password']));
+        $userEntity->setAccessType($post['accessType']);
+        $userEntity->setStatus($post['status']);
+
+        return $userEntity;
+    }
 }

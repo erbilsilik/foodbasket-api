@@ -1,13 +1,18 @@
 <?php
 
+namespace App\Http\Entity;
+
 class UserEntity
 {
     public $id;
-    public $firstName;
-    public $lastName;
+    public $first_name;
+    public $last_name;
     public $email;
-    public $phoneNumber;
-    public $accessType;
+    public $phone_number;
+    public $access_type;
+    public $status;
+    public $password;
+    public $created_at;
 
     /**
      * @return mixed
@@ -20,7 +25,7 @@ class UserEntity
     /**
      * @param mixed $id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
@@ -30,15 +35,15 @@ class UserEntity
      */
     public function getFirstName()
     {
-        return $this->firstName;
+        return $this->first_name;
     }
 
     /**
-     * @param mixed $firstName
+     * @param mixed $first_name
      */
-    public function setFirstName($firstName)
+    public function setFirstName($first_name): void
     {
-        $this->firstName = $firstName;
+        $this->first_name = $first_name;
     }
 
     /**
@@ -46,15 +51,15 @@ class UserEntity
      */
     public function getLastName()
     {
-        return $this->lastName;
+        return $this->last_name;
     }
 
     /**
-     * @param mixed $lastName
+     * @param mixed $last_name
      */
-    public function setLastName($lastName)
+    public function setLastName($last_name): void
     {
-        $this->lastName = $lastName;
+        $this->last_name = $last_name;
     }
 
     /**
@@ -68,7 +73,7 @@ class UserEntity
     /**
      * @param mixed $email
      */
-    public function setEmail($email)
+    public function setEmail($email): void
     {
         $this->email = $email;
     }
@@ -78,15 +83,15 @@ class UserEntity
      */
     public function getPhoneNumber()
     {
-        return $this->phoneNumber;
+        return $this->phone_number;
     }
 
     /**
-     * @param mixed $phoneNumber
+     * @param mixed $phone_number
      */
-    public function setPhoneNumber($phoneNumber)
+    public function setPhoneNumber($phone_number): void
     {
-        $this->phoneNumber = $phoneNumber;
+        $this->phone_number = $phone_number;
     }
 
     /**
@@ -94,15 +99,15 @@ class UserEntity
      */
     public function getAccessType()
     {
-        return $this->accessType;
+        return $this->access_type;
     }
 
     /**
-     * @param mixed $accessType
+     * @param mixed $access_type
      */
-    public function setAccessType($accessType)
+    public function setAccessType($access_type): void
     {
-        $this->accessType = $accessType;
+        $this->access_type = $access_type;
     }
 
     /**
@@ -116,9 +121,41 @@ class UserEntity
     /**
      * @param mixed $status
      */
-    public function setStatus($status)
+    public function setStatus($status): void
     {
         $this->status = $status;
     }
-    public $status;
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password): void
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param mixed $created_at
+     */
+    public function setCreatedAt($created_at): void
+    {
+        $this->created_at = $created_at;
+    }
+
 }

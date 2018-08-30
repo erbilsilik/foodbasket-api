@@ -17,7 +17,8 @@ class CreateRestaurantsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('email');
+            $table->integer('comission')->nullable();
+            $table->text('address');
             $table->string('postcode');
             $table->float('longitude', 8, 2);
             $table->float('latitude', 8, 2);
