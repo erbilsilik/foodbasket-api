@@ -3,7 +3,10 @@
 namespace App\Http\Manager;
 
 use App\Order;
+use App\OrderItem;
 use App\Restaurant;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Auth;
 
 class OrderManager
 {
@@ -21,11 +24,25 @@ class OrderManager
 
     // methods for Order Add
 
-    public function addOrder($data, $userId)
+    public function addOrder($order)
     {
-        return Order::with('users')
-            ->where('user_id', $userId)
-            ->create($data);
+        $orderTable = [];
+        $orderTable['user_id'] = Auth::user()->getAuthIdentifier();
+        $orderTable['restaurant_id'] = $order['restaurantId'];
+        $orderTable['customer_address_id'] = $order['customerAddressId'];
+        $orderTable['status'] = 'waiting';
+
+        $rawOrder = Order::create($orderTable);
+
+
+        foreach ($order['orderItems'] as $key => $value) {
+            $value['order_id'] = $rawOrder['id'];
+            OrderItem::create($value);
+        }
+
+        return Order::with('orderItem')
+            ->where('user_id', Auth::user()->getAuthIdentifier())
+            ->get();
     }
 
     public function updateOrder($id, $data)
