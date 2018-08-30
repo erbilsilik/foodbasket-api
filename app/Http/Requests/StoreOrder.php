@@ -29,20 +29,16 @@ class StoreOrder extends FormRequest
         $rules['customerAddressId'] = 'required|integer';
         $rules['restaurantId'] = 'required|integer';
         $rules['customerAddressId'] = 'required|string';
+        $rules['customerAddressId'] = 'required|string';
+        $rules['$orderItems'] = 'required|array';
 
-        foreach ($orderItems as $orderItem) {
-            $rules[$orderItem] = 'array';
-            $rules[$orderItem]['food_id'] = 'required|integer';
-            $rules[$orderItem]['restaurant_id'] = 'required|integer';
-            $rules[$orderItem]['amount'] = 'required|string';
-            $rules[$orderItem]['price'] = 'required|string';
+        foreach ($orderItems as $key => $orderItem) {
+            $rules['orderItems.' . $key . '.food_id'] = 'required|integer';
+            $rules['oderItems.'. $key . '.restaurant_id'] = 'required|integer';
+            $rules['$orderItems.' . $key . '.amount'] = 'required|string';
+            $rules['$orderItems.'. $key .'.price'] = 'required|string';
         }
 
         return $rules;
-    }
-
-    public function messages()
-    {
-
     }
 }

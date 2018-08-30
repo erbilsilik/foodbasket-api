@@ -29,11 +29,10 @@ class OrderController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param StoreOrder $request
      * @return \Illuminate\Http\JsonResponse
      */
-    // TODO Implement StoreOrder Validation
-    public function store(Request $request)
+    public function store(StoreOrder $request)
     {
         $order = $request->all();
         $this->orderManager->addOrder($order);
