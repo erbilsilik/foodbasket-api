@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
 use App\Http\Manager\UserManager;
 
+
 class CheckOwner
 {
     /**
@@ -18,9 +19,9 @@ class CheckOwner
      */
     public function handle($request, Closure $next)
     {
-//        if (Auth::user()->access_type !== UserManager::ACCESS_TYPE_OWNER) {
-//            throw new Exception('You don\'t have a permission to access this page');
-//        }
+        if ($request->session()->get('owner')->access_type !== UserManager::ACCESS_TYPE_OWNER) {
+            throw new Exception('You don\'t have a permission to access this page');
+        }
         return $next($request);
     }
 }

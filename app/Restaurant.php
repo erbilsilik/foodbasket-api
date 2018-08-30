@@ -39,4 +39,9 @@ class Restaurant extends Model
     {
         return $this->hasMany('App\Food');
     }
+
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
 }

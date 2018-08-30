@@ -33,8 +33,8 @@ class RestaurantController extends Controller
      */
     public function allRestaurantsIndex()
     {
-        $data['Restaurants'] = Restaurant::all();
-        return view('MasterAdmin/Pages/Restaurants', $data);
+        $allRestaurants['Restaurants'] = Restaurant::all();
+        return view('MasterAdmin/Pages/Restaurants', $allRestaurants);
     }
 
     /**
