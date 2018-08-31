@@ -8,34 +8,61 @@ use App\OrderItem;
 use App\Restaurant;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
+use Mockery\Exception;
 
 class OrderManager implements ManagerInterface
 {
+    const WAITING_STATUS = 'waiting';
+    const APPROVED_STATUS = 'approved';
+    const REJECTED_STATUS = 'rejected';
+
     // methods for Order List
 
     public function getOrderList()
     {
-        return Order::where('user_id', Auth::user()->getAuthIdentifier())
-            ->get();
+        $orders = Order::with('orderItems')
+            ->where('user_id', Auth::user()->getAuthIdentifier())->get();
+        
+        $orderList = [];
+        foreach ($orders as $order) {
+            $order = self::map($order);
+            $orderList[] = [
+                'id' => $order->getId(),
+                'customerAddressId' => $order->getCustomerAddressId(),
+                'orderItems' => $order->getOrderItems(),
+                'restaurantId' => $order->getRestaurantId(),
+                'status' => $order->getStatus()
+            ];
+        }
+
+        return $orderList;
 
     }
 
     // methods for Order Add
 
-    public function addOrder($order)
+    /**
+     * @param OrderEntity $order
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function addOrder(OrderEntity $order)
     {
-        $orderTable = [];
-        $orderTable['user_id'] = Auth::user()->getAuthIdentifier();
-        $orderTable['restaurant_id'] = $order['restaurantId'];
-        $orderTable['customer_address_id'] = $order['customerAddressId'];
-        $orderTable['status'] = 'waiting';
+        $rawOrder = Order::create([
+            'user_id' => Auth::user()->getAuthIdentifier(),
+            'restaurant_id' => $order->getRestaurantId(),
+            'customer_address_id' => $order->getCustomerAddressId(),
+            'status' => $order->getStatus()
+        ]);
 
-        $rawOrder = Order::create($orderTable);
-
-
-        foreach ($order['orderItems'] as $key => $value) {
-            $value['order_id'] = $rawOrder['id'];
-            OrderItem::create($value);
+        $orderItems = [];
+        if ($rawOrder instanceof Order) {
+            foreach ($order->getOrderitems() as $key => $value) {
+                $value['order_id'] = $rawOrder['id'];
+                $orderItem = OrderItem::create($value);
+                if ($orderItem instanceof OrderItem) {
+                    $orderItems[] = $orderItem;
+                }
+            }
         }
 
         return Order::with('orderItem')
@@ -62,10 +89,11 @@ class OrderManager implements ManagerInterface
     {
         $orderEntity = new OrderEntity();
         $orderEntity->setId($db['id']);
-        $orderEntity->setUserId($db['userId']);
-        $orderEntity->setCustomerAdressId($db['customerAddressId']);
-        $orderEntity->setRestaurantId($db['restaurantId']);
+        $orderEntity->setUserId($db['user_id']);
+        $orderEntity->setCustomerAddressId($db['customer_address_id']);
+        $orderEntity->setRestaurantId($db['restaurant_id']);
         $orderEntity->setStatus($db['status']);
+        $orderEntity->setOrderItems($db['orderItems']);
 
         return $orderEntity;
     }
@@ -73,11 +101,31 @@ class OrderManager implements ManagerInterface
     public function mapExternal($post)
     {
         $orderEntity = new OrderEntity();
-        $orderEntity->setId($post['id']);
-        $orderEntity->setUserId($post['userId']);
-        $orderEntity->setCustomerAdressId($post['customerAddressId']);
-        $orderEntity->setRestaurantId($post['restaurantId']);
-        $orderEntity->setStatus($post['status']);
+        if (isset($post['customerAddressId'])) {
+            $orderEntity->setCustomerAddressId($post['customerAddressId']);
+        }
+        if (empty($post['customerAddressId'])) {
+            throw new Exception('Customer address id not found');
+        }
+        if (isset($post['restaurantId'])) {
+            $orderEntity->setRestaurantId($post['restaurantId']);
+        }
+        if (empty($post['restaurantId'])) {
+            throw new Exception('Restaurant id not found');
+        }
+        if (isset($post['status'])) {
+            $orderEntity->setStatus($post['status']);
+        }
+        if (empty($post['status'])) {
+            throw new Exception('Status not found');
+        }
+
+        if (isset($post['orderItems'])) {
+            $orderEntity->setOrderitems($post['orderItems']);
+        }
+        if (empty($post['orderItems'])) {
+            throw new Exception('OrderItems not found');
+        }
 
         return $orderEntity;
     }

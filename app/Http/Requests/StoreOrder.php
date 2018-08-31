@@ -23,20 +23,20 @@ class StoreOrder extends FormRequest
      */
     public function rules()
     {
+        // TODO check and validate for correct data types
         $rules = [];
         $orderItems = $this->request->get('orderItems');
 
         $rules['customerAddressId'] = 'required|integer';
         $rules['restaurantId'] = 'required|integer';
-        $rules['customerAddressId'] = 'required|string';
-        $rules['customerAddressId'] = 'required|string';
-        $rules['$orderItems'] = 'required|array';
+        $rules['status'] = 'required|string';
+        $rules['orderItems'] = 'required|array';
 
         foreach ($orderItems as $key => $orderItem) {
             $rules['orderItems.' . $key . '.food_id'] = 'required|integer';
             $rules['oderItems.'. $key . '.restaurant_id'] = 'required|integer';
-            $rules['$orderItems.' . $key . '.amount'] = 'required|string';
-            $rules['$orderItems.'. $key .'.price'] = 'required|string';
+            $rules['orderItems.' . $key . '.amount'] = 'required|string';
+            $rules['orderItems.'. $key .'.price'] = 'required|string';
         }
 
         return $rules;

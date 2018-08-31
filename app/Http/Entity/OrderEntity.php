@@ -4,12 +4,13 @@ namespace App\Http\Entity;
 
 class OrderEntity
 {
-    public $id;
-    public $user_id;
-    public $customer_address_id;
-    public $restaurant_id;
-    public $status;
-    public $created_at;
+    private $id;
+    private $userId;
+    private $customerAddressId;
+    private $restaurantId;
+    private $status;
+    private $createdAt;
+    private $orderItems = [];
 
     /**
      * @return mixed
@@ -22,7 +23,7 @@ class OrderEntity
     /**
      * @param mixed $id
      */
-    public function setId($id): void
+    public function setId($id)
     {
         $this->id = $id;
     }
@@ -32,31 +33,31 @@ class OrderEntity
      */
     public function getUserId()
     {
-        return $this->user_id;
+        return $this->userId;
     }
 
     /**
-     * @param mixed $user_id
+     * @param mixed $userId
      */
-    public function setUserId($user_id): void
+    public function setUserId($userId)
     {
-        $this->user_id = $user_id;
+        $this->userId = $userId;
     }
 
     /**
      * @return mixed
      */
-    public function getCustomerAdressId()
+    public function getCustomerAddressId()
     {
-        return $this->customer_address_id;
+        return $this->customerAddressId;
     }
 
     /**
-     * @param mixed $customer_adress_id
+     * @param mixed $customerAddressId
      */
-    public function setCustomerAdressId($customer_address_id): void
+    public function setCustomerAddressId($customerAddressId)
     {
-        $this->customer_address_id = $customer_address_id;
+        $this->customerAddressId = $customerAddressId;
     }
 
     /**
@@ -64,15 +65,15 @@ class OrderEntity
      */
     public function getRestaurantId()
     {
-        return $this->restaurant_id;
+        return $this->restaurantId;
     }
 
     /**
-     * @param mixed $restaurant_id
+     * @param mixed $restaurantId
      */
-    public function setRestaurantId($restaurant_id): void
+    public function setRestaurantId($restaurantId)
     {
-        $this->restaurant_id = $restaurant_id;
+        $this->restaurantId = $restaurantId;
     }
 
     /**
@@ -86,7 +87,7 @@ class OrderEntity
     /**
      * @param mixed $status
      */
-    public function setStatus($status): void
+    public function setStatus($status)
     {
         $this->status = $status;
     }
@@ -96,15 +97,30 @@ class OrderEntity
      */
     public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
-     * @param mixed $created_at
+     * @param mixed $createdAt
      */
-    public function setCreatedAt($created_at): void
+    public function setCreatedAt($createdAt)
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
     }
 
+    /**
+     * @return array
+     */
+    public function getOrderItems()
+    {
+        return $this->orderItems;
+    }
+
+    /**
+     * @param array $orderItems
+     */
+    public function setOrderItems($orderItems)
+    {
+        $this->orderItems = $orderItems;
+    }
 }

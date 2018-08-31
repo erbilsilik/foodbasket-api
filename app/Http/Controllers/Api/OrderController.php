@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\StoreOrder;
 use Illuminate\Http\Request;
 use App\Order;
 use App\Http\Manager\OrderManager;
@@ -26,18 +27,19 @@ class OrderController extends Controller
     public function index()
     {
         return response()
-            ->json($this->orderManager->getOrderList(Auth::user()->getAuthIdentifier()));
+            ->json($this->orderManager->getOrderList());
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        return $this->orderManager->addOrder($request->all());
+        $order = $this->orderManager->mapExternal($request->all());
+        $givenOrder = $this->orderManager->addOrder($order);
+
+        return response()->json($givenOrder, 201);
     }
 
     /**

@@ -8,6 +8,11 @@ class Order extends Model
 {
     protected $table = 'orders';
 
+    public $user_id;
+    public $customer_address_id;
+    public $restaurant_id;
+    public $status;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -27,8 +32,8 @@ class Order extends Model
         return $this->belongsTo('\App\CustomerAddress');
     }
 
-    public function orderItem()
+    public function orderItems()
     {
-        return $this->belongsTo('\App\OrderItem');
+        return $this->hasMany('\App\OrderItem');
     }
 }
