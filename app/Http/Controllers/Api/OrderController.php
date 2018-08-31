@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\Http\Manager\OrderManager;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 
 class OrderController extends Controller
@@ -22,10 +23,10 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($userId)
+    public function index()
     {
         return response()
-            ->json($this->orderManager->getOrderList($userId));
+            ->json($this->orderManager->getOrderList(Auth::user()->getAuthIdentifier()));
     }
 
     /**
@@ -34,9 +35,9 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $userId)
+    public function store(Request $request)
     {
-        return $this->orderManager->addOrder($request->all(), $userId);
+        return $this->orderManager->addOrder($request->all());
     }
 
     /**

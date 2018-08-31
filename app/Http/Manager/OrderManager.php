@@ -13,14 +13,11 @@ class OrderManager implements ManagerInterface
 {
     // methods for Order List
 
-    public function getOrderList($userId)
+    public function getOrderList()
     {
-        if (isset($userId)) {
-            return Order::where('user_id', $userId)
-                ->get();
-        }
+        return Order::where('user_id', Auth::user()->getAuthIdentifier())
+            ->get();
 
-        return 'No userId provided';
     }
 
     // methods for Order Add
@@ -49,7 +46,7 @@ class OrderManager implements ManagerInterface
     public function updateOrder($id, $data)
     {
         $order = Order::findOrFail($id);
-        $managerMap = (array) $this->map($data);
+        $managerMap = (array)$this->map($data);
         $order->update($managerMap);
 
         return $order;

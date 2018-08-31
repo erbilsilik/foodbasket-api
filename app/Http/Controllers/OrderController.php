@@ -22,10 +22,10 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($userId)
+    public function index()
     {
         return response()
-            ->json($this->orderManager->getOrderList($userId));
+            ->json($this->orderManager->getOrderList());
     }
 
     /**

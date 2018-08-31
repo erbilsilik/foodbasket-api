@@ -45,8 +45,8 @@ Route::group(['namespace' => 'Api'], (function () {
         Route::delete('foods/{id}', 'FoodController@destroy');
 
         //Orders
-        Route::get('{userId}/orders', 'OrderController@index');
-        Route::post('{userId}/orders', 'OrderController@store');
+        Route::get('orders', 'OrderController@index');
+        Route::post('orders', 'OrderController@store');
         Route::delete('orders/{id}', 'OrderController@destroy');
         Route::put('orders/{id}', 'OrderController@update');
 
