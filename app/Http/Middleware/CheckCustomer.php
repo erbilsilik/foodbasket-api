@@ -2,7 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Manager\UserManager;
+use App\User;
 use Closure;
+use Illuminate\Support\Facades\Auth;
+use Mockery\Exception;
 
 class CheckCustomer
 {
@@ -15,6 +19,14 @@ class CheckCustomer
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+        $userId = Auth::user()->getAuthIdentifier();
+        $user = User::find($userId);
+
+        if (isset($user) && $user->access_type === UserManager::ACCESS_TYPE_CUSTOMER) {
+            return $next($request);
+        }
+
+        throw new Exception('You are not authorized to make this request');
+
     }
 }
