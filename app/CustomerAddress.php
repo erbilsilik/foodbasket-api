@@ -7,7 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class CustomerAddress extends Model
 {
     protected $table = 'customer_addresses';
-    public $city;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'id', 'user_id', 'postcode', 'address'
+    ];
 
     public function customer()
     {

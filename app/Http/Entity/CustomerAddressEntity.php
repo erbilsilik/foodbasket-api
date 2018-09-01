@@ -5,10 +5,10 @@ namespace App\Http\Entity;
 class CustomerAddressEntity
 {
     public $id;
-    public $user_id;
+    public $userId;
     public $postcode;
-    public $adress;
-    public $created_at;
+    public $address;
+    public $createdAt;
 
     /**
      * @return mixed
@@ -21,7 +21,7 @@ class CustomerAddressEntity
     /**
      * @param mixed $id
      */
-    public function setId($id): void
+    public function setId($id)
     {
         $this->id = $id;
     }
@@ -31,15 +31,15 @@ class CustomerAddressEntity
      */
     public function getUserId()
     {
-        return $this->user_id;
+        return $this->userId;
     }
 
     /**
-     * @param mixed $user_id
+     * @param mixed $userId
      */
-    public function setUserId($user_id): void
+    public function setUserId($userId)
     {
-        $this->user_id = $user_id;
+        $this->userId = $userId;
     }
 
     /**
@@ -53,7 +53,7 @@ class CustomerAddressEntity
     /**
      * @param mixed $postcode
      */
-    public function setPostcode($postcode): void
+    public function setPostcode($postcode)
     {
         $this->postcode = $postcode;
     }
@@ -61,17 +61,17 @@ class CustomerAddressEntity
     /**
      * @return mixed
      */
-    public function getAdress()
+    public function getAddress()
     {
-        return $this->adress;
+        return $this->address;
     }
 
     /**
-     * @param mixed $adress
+     * @param mixed $address
      */
-    public function setAdress($adress): void
+    public function setAddress($address)
     {
-        $this->adress = $adress;
+        $this->address = $address;
     }
 
     /**
@@ -79,15 +79,14 @@ class CustomerAddressEntity
      */
     public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
-     * @param mixed $created_at
+     * @param mixed $createdAt
      */
-    public function setCreatedAt($created_at): void
+    public function setCreatedAt($createdAt)
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
     }
-
 }

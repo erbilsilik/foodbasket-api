@@ -43,11 +43,10 @@ class OrderManager implements ManagerInterface
             ->get();
     }
 
-    public function updateOrder($id, $data)
+    public function updateOrder($id)
     {
         $order = Order::findOrFail($id);
-        $managerMap = (array)$this->map($data);
-        $order->update($managerMap);
+        $order->update($order);
 
         return $order;
     }
