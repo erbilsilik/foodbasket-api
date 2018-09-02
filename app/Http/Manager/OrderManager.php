@@ -2,12 +2,15 @@
 
 namespace App\Http\Manager;
 
+use App\Events\OrderShipped;
 use App\Http\Entity\OrderEntity;
+use App\Jobs\SendOrderEmail;
 use App\Order;
 use App\OrderItem;
 use App\Restaurant;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Mockery\Exception;
 
 class OrderManager implements ManagerInterface
@@ -55,6 +58,12 @@ class OrderManager implements ManagerInterface
             'customer_address_id' => $order->getCustomerAddressId(),
             'status' => $order->getStatus()
         ]);
+
+//        event(new OrderShipped($rawOrder));
+
+        SendOrderEmail::dispatch($rawOrder);
+
+        \Log::info('Dispatched order ' . $rawOrder->id);
 
         $orderItems = [];
         if ($rawOrder instanceof Order) {
