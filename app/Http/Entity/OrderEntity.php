@@ -11,6 +11,8 @@ class OrderEntity
     private $status;
     private $createdAt;
     private $orderItems = [];
+    private $restaurant;
+    private $customerAddress;
 
     /**
      * @return mixed
@@ -122,5 +124,37 @@ class OrderEntity
     public function setOrderItems($orderItems)
     {
         $this->orderItems = $orderItems;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRestaurant()
+    {
+        return $this->restaurant;
+    }
+
+    /**
+     * @param mixed $restaurant
+     */
+    public function setRestaurant($restaurant)
+    {
+        $this->restaurant = $restaurant;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCustomerAddress()
+    {
+        return $this->customerAddress;
+    }
+
+    /**
+     * @param mixed $customerAddress
+     */
+    public function setCustomerAddress($customerAddress)
+    {
+        $this->customerAddress = $customerAddress;
     }
 }

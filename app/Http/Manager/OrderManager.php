@@ -20,9 +20,9 @@ class OrderManager implements ManagerInterface
 
     public function getOrderList()
     {
-        $orders = Order::with('orderItems')
-            ->where('user_id', Auth::user()->getAuthIdentifier())->get();
-        
+        $orders = Order::with('restaurant', 'user', 'orderItems')
+            ->where('user_id', Auth::user()->getAuthIdentifier())
+            ->get();
         $orderList = [];
         foreach ($orders as $order) {
             $order = self::map($order);
@@ -31,6 +31,8 @@ class OrderManager implements ManagerInterface
                 'customerAddressId' => $order->getCustomerAddressId(),
                 'orderItems' => $order->getOrderItems(),
                 'restaurantId' => $order->getRestaurantId(),
+                'restaurant' => $order->getRestaurant(),
+                'customerAddress' => $order->getCustomerAddress(),
                 'status' => $order->getStatus()
             ];
         }
@@ -65,7 +67,7 @@ class OrderManager implements ManagerInterface
             }
         }
 
-        return Order::with('orderItem')
+        return Order::with('orderItems')
             ->where('user_id', Auth::user()->getAuthIdentifier())
             ->get();
     }
@@ -92,6 +94,8 @@ class OrderManager implements ManagerInterface
         $orderEntity->setUserId($db['user_id']);
         $orderEntity->setCustomerAddressId($db['customer_address_id']);
         $orderEntity->setRestaurantId($db['restaurant_id']);
+        $orderEntity->setRestaurant($db['restaurant']);
+        $orderEntity->setCustomerAddress($db['customer_address']);
         $orderEntity->setStatus($db['status']);
         $orderEntity->setOrderItems($db['orderItems']);
 

@@ -36,4 +36,9 @@ class Order extends Model
     {
         return $this->hasMany('\App\OrderItem');
     }
+
+    public function restaurant()
+    {
+        return $this->belongsTo('\App\Restaurant');
+    }
 }
