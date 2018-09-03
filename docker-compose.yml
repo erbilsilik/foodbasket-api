@@ -1,4 +1,4 @@
-version: '2'
+version: "2"
 services:
   nginx:
     image: nginx:1.11.10-alpine
@@ -30,3 +30,13 @@ services:
       - .Data:/var/lib/postgresql/data
     ports:
       - 3306:5432
+  redis:
+    container_name: container-name
+    build: ./Redis/
+    ports:
+      - 6003:6379
+    volumes:
+      - ../RedisData/data:/data
+    command: redis-server --appendonly yes
+    depends_on:
+      - api

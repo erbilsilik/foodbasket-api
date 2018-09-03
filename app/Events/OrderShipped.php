@@ -11,9 +11,9 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class OrderShipped
+class OrderShipped implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
 
     public $order;
 
@@ -33,6 +33,7 @@ class OrderShipped
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return ['test-channel'];
+//        return new PrivateChannel('channel-name');
     }
 }

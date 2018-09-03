@@ -62,3 +62,5 @@ Route::group(['namespace' => 'Api'], (function () {
     }));
 
 }));
+
+Route::get('redis', 'SocketController@redis');

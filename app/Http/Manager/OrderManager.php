@@ -59,7 +59,7 @@ class OrderManager implements ManagerInterface
             'status' => $order->getStatus()
         ]);
 
-//        event(new OrderShipped($rawOrder));
+        event(new OrderShipped($rawOrder));
 
         SendOrderEmail::dispatch($rawOrder);
 
