@@ -11,11 +11,6 @@ class SocketController extends Controller
 
     public function redis()
     {
-
-        $redis = app()->make('redis');
-        $redis->set("key1", "testval");
-        return $redis->get("key1");
-
 //        $redis = new Redis();
 //
 //        try {
@@ -24,5 +19,8 @@ class SocketController extends Controller
 //            var_dump($e->getMessage());
 //            die();
 //        }
+        $redis = app()->make('redis');
+        $redis->set("key1", "testval");
+        return $redis->get("key1");
     }
 }
