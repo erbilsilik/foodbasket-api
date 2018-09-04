@@ -23,7 +23,7 @@ class FoodEntity
     /**
      * @param mixed $id
      */
-    public function setId($id): void
+    public function setId($id)
     {
         $this->id = $id;
     }
@@ -39,7 +39,7 @@ class FoodEntity
     /**
      * @param mixed $restaurant_id
      */
-    public function setRestaurantId($restaurant_id): void
+    public function setRestaurantId($restaurant_id)
     {
         $this->restaurant_id = $restaurant_id;
     }
@@ -55,7 +55,7 @@ class FoodEntity
     /**
      * @param mixed $name
      */
-    public function setName($name): void
+    public function setName($name)
     {
         $this->name = $name;
     }
@@ -71,7 +71,7 @@ class FoodEntity
     /**
      * @param mixed $detail
      */
-    public function setDetail($detail): void
+    public function setDetail($detail)
     {
         $this->detail = $detail;
     }
@@ -87,7 +87,7 @@ class FoodEntity
     /**
      * @param mixed $img
      */
-    public function setImg($img): void
+    public function setImg($img)
     {
         $this->img = $img;
     }
@@ -103,7 +103,7 @@ class FoodEntity
     /**
      * @param mixed $price
      */
-    public function setPrice($price): void
+    public function setPrice($price)
     {
         $this->price = $price;
     }
@@ -119,7 +119,7 @@ class FoodEntity
     /**
      * @param mixed $created_at
      */
-    public function setCreatedAt($created_at): void
+    public function setCreatedAt($created_at)
     {
         $this->created_at = $created_at;
     }

@@ -22,8 +22,8 @@ class OrderItem extends Model
         $this->hasMany('\App\Food');
     }
 
-    public function orders()
+    public function order()
     {
-        $this->hasMany('\App\Order');
+        $this->belongsTo('\App\Order');
     }
 }
