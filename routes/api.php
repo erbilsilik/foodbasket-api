@@ -59,6 +59,12 @@ Route::group(['namespace' => 'Api'], (function () {
         //Orders
         Route::get('{userId}/orders', 'OrderController@index');
         Route::post('{userId}/orders', 'OrderController@store');
+
+        // Customer Addresses
+        Route::get('customer-addresses', 'CustomerAddressController@index');
+        Route::post('customer-addresses', 'CustomerAddressController@store');
+        Route::delete('customer-addresses/{id}', 'CustomerAddressController@destroy');
+        Route::put('customer-addresses/{id}', 'CustomerAddressController@update');
     }));
 
 }));
