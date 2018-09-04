@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Manager\UserManager;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,12 +47,18 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
+        $user = User::where('email', $credentials['email'])
+                ->first();
 
-        if ($token = $this->guard()->attempt($credentials)) {
-            return $this->respondWithToken($token);
+        if ($user instanceof User && $user->access_type === UserManager::ACCESS_TYPE_CUSTOMER) {
+            if ($token = $this->guard()->attempt($credentials)) {
+                return $this->respondWithToken($token);
+            }
+
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return response()->json(['error' => 'Unauthorized'], 401);
+        return response()->json('You are not authorized to make this request');
     }
 
     /**

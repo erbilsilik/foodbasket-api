@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Http\Manager\UserManager;
 use App\Http\Requests\Register\RegisterRequest;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -26,8 +27,8 @@ class RegisterController extends Controller
             'last_name' => $data['lastName'],
             'phone_number' => $data['phoneNumber'],
             'email' => $data['email'],
-            'access_type' => 'customer',
-            'status' => 'active',
+            'access_type' => UserManager::ACCESS_TYPE_CUSTOMER,
+            'status' => UserManager::ACTIVE_STATUS,
             'password' => Hash::make($data['password']),
         ]);
     }

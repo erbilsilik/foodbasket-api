@@ -14,9 +14,9 @@ class UserManager implements ManagerInterface
     const ACCESS_TYPE_OWNER = 'owner';
 
     // statuses
-    const STATUS_ACTIVE = 'active';
-    const STATUS_DISABLED = 'disabled';
-    const STATUS_DELETED = 'deleted';
+    const ACTIVE_STATUS = 'active';
+    const DISABLED_STATUS = 'disabled';
+    const DELETED_STATUS = 'deleted';
 
     public function addUser($data)
     {
