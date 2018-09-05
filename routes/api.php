@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
@@ -20,7 +20,7 @@ Route::group(['namespace' => 'Api'], (function () {
 
     Route::post('register', 'Auth\RegisterController@register');
     Route::post('login', 'Auth\LoginController@login');
-    Route::group(['middleware' => ['jwt.auth', 'check.customer']], function() {
+    Route::group(['middleware' => ['jwt.auth', 'check.customer']], function () {
         Route::get('logout', 'Auth\LoginController@logout');
         Route::post('refresh', 'Auth\LoginController@refresh');
         Route::get('me', 'Auth\LoginController@me');
@@ -68,5 +68,3 @@ Route::group(['namespace' => 'Api'], (function () {
     }));
 
 }));
-
-Route::get('redis', 'SocketController@redis');
