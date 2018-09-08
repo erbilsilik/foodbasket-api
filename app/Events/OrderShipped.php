@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+//use App\Order;
 use App\Order;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -34,6 +35,16 @@ class OrderShipped implements ShouldBroadcast
     public function broadcastOn()
     {
         return ['test-channel'];
-//        return new PrivateChannel('channel-name');
+//        return new PrivateChannel('restaurant.'.$this->order->restaurant_id);
+    }
+
+    public function broadcastAs()
+    {
+        return 'server.created';
+    }
+
+    public function broadcastWith()
+    {
+        return $this->order;
     }
 }

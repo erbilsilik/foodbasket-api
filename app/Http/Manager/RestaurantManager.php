@@ -2,6 +2,7 @@
 
 namespace App\Http\Manager;
 
+use App\Events\OrderShipped;
 use App\Helper;
 use App\Http\Entity\RestaurantEntity;
 use App\LocationPostCode;

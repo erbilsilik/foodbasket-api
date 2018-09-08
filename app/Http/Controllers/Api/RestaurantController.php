@@ -6,6 +6,7 @@ use App\Restaurant;
 use Illuminate\Http\Request;
 use App\Http\Manager\RestaurantManager;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redis;
 
 class RestaurantController extends Controller
 {

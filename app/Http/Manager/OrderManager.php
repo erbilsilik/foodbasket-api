@@ -11,6 +11,7 @@ use App\Restaurant;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redis;
 use Mockery\Exception;
 
 class OrderManager implements ManagerInterface
@@ -59,11 +60,13 @@ class OrderManager implements ManagerInterface
             'status' => $order->getStatus()
         ]);
 
-        event(new OrderShipped($rawOrder));
+        Redis::publish('restaurant_id.' . $order->getRestaurantId(), json_encode(['order' => $rawOrder]));
 
-        SendOrderEmail::dispatch($rawOrder);
+//        event(new OrderShipped($rawOrder));
 
-        \Log::info('Dispatched order ' . $rawOrder->id);
+//        SendOrderEmail::dispatch($rawOrder);
+//
+//        \Log::info('Dispatched order ' . $rawOrder->id);
 
         $orderItems = [];
         if ($rawOrder instanceof Order) {
