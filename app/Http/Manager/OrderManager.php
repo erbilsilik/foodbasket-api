@@ -2,12 +2,14 @@
 
 namespace App\Http\Manager;
 
-use App\Events\OrderShipped;
+use App\CustomerAddress;
+use App\Food;
+use App\Http\Entity\FoodEntity;
 use App\Http\Entity\OrderEntity;
+use App\Http\Entity\OrderItemEntity;
 use App\Jobs\SendOrderEmail;
 use App\Order;
 use App\OrderItem;
-use App\Restaurant;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -60,14 +62,7 @@ class OrderManager implements ManagerInterface
             'status' => $order->getStatus()
         ]);
 
-        Redis::publish('restaurant_id.' . $order->getRestaurantId(), json_encode(['order' => $rawOrder]));
-
-//        event(new OrderShipped($rawOrder));
-
-//        SendOrderEmail::dispatch($rawOrder);
-//
-//        \Log::info('Dispatched order ' . $rawOrder->id);
-
+        // INSERT to order items table
         $orderItems = [];
         if ($rawOrder instanceof Order) {
             foreach ($order->getOrderitems() as $key => $value) {
@@ -78,6 +73,29 @@ class OrderManager implements ManagerInterface
                 }
             }
         }
+
+        // Publish in channel
+
+        $savedOrder = Order::with('orderItems', 'orderItems.food')
+            ->where('id',  $rawOrder->id)
+            ->first();
+
+        $savedOrder->customer_address = CustomerAddress::where('id', $rawOrder['customer_address_id'])->first();
+        $customerAddressManager = new CustomerAddressManager();
+        $savedOrder->customer_address = $customerAddressManager->map($savedOrder->customer_address);
+
+
+        $savedOrder->user = User::where('id', Auth::user()->getAuthIdentifier())->first();
+
+        // TODO map also for the user after transforming User entity variable's to camelCase
+        // $user = new UserManager();
+        // $savedOrder->user = $user->map($savedOrder->user);
+
+
+        // TODO map also for food in orderItems and seperate publish method from addOrder method
+
+
+        Redis::publish('restaurant_id.' . $order->getRestaurantId(), $savedOrder);
 
         return Order::with('orderItems')
             ->where('user_id', Auth::user()->getAuthIdentifier())
@@ -102,13 +120,42 @@ class OrderManager implements ManagerInterface
     {
         $orderEntity = new OrderEntity();
         $orderEntity->setId($db['id']);
-        $orderEntity->setUserId($db['user_id']);
+        $orderEntity->setCustomerId($db['user_id']);
         $orderEntity->setCustomerAddressId($db['customer_address_id']);
         $orderEntity->setRestaurantId($db['restaurant_id']);
-        $orderEntity->setRestaurant($db['restaurant']);
+//        $orderEntity->setRestaurant($db['restaurant']);
         $orderEntity->setCustomerAddress($db['customer_address']);
         $orderEntity->setStatus($db['status']);
-        $orderEntity->setOrderItems($db['orderItems']);
+
+        $orderItems = [];
+
+        foreach ($db->orderItems as $item) {
+            $orderItemEntity = new OrderItemEntity();
+            $orderItemEntity->setId($item->id);
+            $orderItemEntity->setFoodId($item->food_id);
+            $orderItemEntity->setOrderId($item->order_id);
+            $orderItemEntity->setAmount($item->amount);
+            $orderItemEntity->setPrice($item->price);
+            $orderItemEntity->setFood($item->food);
+
+//            foreach ($item->food as $food) {
+//                $foodEntity = new FoodEntity();
+//                $foodEntity->setName($food['name']);
+//                $foodEntity->setRestaurantId($food['restaurant_id']);
+//                $foodEntity->setDetail($food['detail']);
+//                $foodEntity->setImg($food['img']);
+//                $foodEntity->setPrice($food['price']);
+//
+//                $item->food = $foodEntity;
+//
+//                dd($item->food);
+//            }
+
+            $orderItems[] = $orderItemEntity;
+
+        }
+
+        $orderEntity->setOrderItems($orderItems);
 
         return $orderEntity;
     }

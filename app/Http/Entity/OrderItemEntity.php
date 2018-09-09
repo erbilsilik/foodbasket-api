@@ -4,12 +4,13 @@ namespace App\Http\Entity;
 
 class OrderItemEntity
 {
-    private $id;
-    private $foodId;
-    private $orderId;
-    private $amount;
-    private $price;
-    private $createdAt;
+    public $id;
+    public $foodId;
+    public $orderId;
+    public $amount;
+    public $price;
+    public $createdAt;
+    public $setFood;
 
     /**
      * @return mixed
@@ -106,4 +107,38 @@ class OrderItemEntity
     {
         $this->createdAt = $createdAt;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSetFood()
+    {
+        return $this->setFood;
+    }
+
+    /**
+     * @param mixed $setFood
+     */
+    public function setSetFood($setFood)
+    {
+        $this->setFood = $setFood;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFood()
+    {
+        return $this->food;
+    }
+
+    /**
+     * @param mixed $food
+     */
+    public function setFood($food)
+    {
+        $this->food = $food;
+    }
+    public $food;
+
 }

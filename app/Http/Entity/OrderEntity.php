@@ -4,15 +4,15 @@ namespace App\Http\Entity;
 
 class OrderEntity
 {
-    private $id;
-    private $userId;
-    private $customerAddressId;
-    private $restaurantId;
-    private $status;
-    private $createdAt;
-    private $orderItems = [];
-    private $restaurant;
-    private $customerAddress;
+    public $id;
+    public $customerId;
+    public $customerAddressId;
+    public $restaurantId;
+    public $status;
+    public $createdAt;
+    public $orderItems;
+    public $restaurant;
+    public $customerAddress;
 
     /**
      * @return mixed
@@ -33,17 +33,17 @@ class OrderEntity
     /**
      * @return mixed
      */
-    public function getUserId()
+    public function getCustomerId()
     {
-        return $this->userId;
+        return $this->customerId;
     }
 
     /**
-     * @param mixed $userId
+     * @param mixed $customerId
      */
-    public function setUserId($userId)
+    public function setCustomerId($customerId)
     {
-        $this->userId = $userId;
+        $this->customerId = $customerId;
     }
 
     /**
