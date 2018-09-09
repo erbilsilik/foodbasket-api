@@ -10,7 +10,7 @@ class OrderItemEntity
     public $amount;
     public $price;
     public $createdAt;
-    public $setFood;
+    public $food;
 
     /**
      * @return mixed
@@ -109,23 +109,7 @@ class OrderItemEntity
     }
 
     /**
-     * @return mixed
-     */
-    public function getSetFood()
-    {
-        return $this->setFood;
-    }
-
-    /**
-     * @param mixed $setFood
-     */
-    public function setSetFood($setFood)
-    {
-        $this->setFood = $setFood;
-    }
-
-    /**
-     * @return mixed
+     * @return FoodEntity
      */
     public function getFood()
     {
@@ -135,10 +119,8 @@ class OrderItemEntity
     /**
      * @param mixed $food
      */
-    public function setFood($food)
+    public function setFood($food): void
     {
         $this->food = $food;
     }
-    public $food;
-
 }

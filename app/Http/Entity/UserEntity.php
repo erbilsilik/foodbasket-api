@@ -11,7 +11,7 @@ class UserEntity
     public $phone_number;
     public $access_type;
     public $status;
-    public $password;
+    private $password;
     public $created_at;
 
     /**

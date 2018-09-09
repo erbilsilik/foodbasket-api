@@ -2,6 +2,10 @@
 
 namespace App\Http\Entity;
 
+use App\CustomerAddress;
+use App\Order;
+use App\User;
+
 class OrderEntity
 {
     public $id;
@@ -13,6 +17,56 @@ class OrderEntity
     public $orderItems;
     public $restaurant;
     public $customerAddress;
+    public $user;
+    public $address;
+
+    /**
+     * @return UserEntity
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param mixed $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return OrderItemEntity[]
+     */
+    public function getOrderItems()
+    {
+        return $this->orderItems;
+    }
+
+    /**
+     * @param [] $orderItems
+     */
+    public function setOrderItems($orderItems)
+    {
+        $this->orderItems = $orderItems;
+    }
 
     /**
      * @return mixed
@@ -111,22 +165,6 @@ class OrderEntity
     }
 
     /**
-     * @return array
-     */
-    public function getOrderItems()
-    {
-        return $this->orderItems;
-    }
-
-    /**
-     * @param array $orderItems
-     */
-    public function setOrderItems($orderItems)
-    {
-        $this->orderItems = $orderItems;
-    }
-
-    /**
      * @return mixed
      */
     public function getRestaurant()
@@ -143,7 +181,7 @@ class OrderEntity
     }
 
     /**
-     * @return mixed
+     * @return CustomerAddressEntity
      */
     public function getCustomerAddress()
     {

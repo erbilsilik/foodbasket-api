@@ -10,6 +10,7 @@ use App\Http\Entity\OrderItemEntity;
 use App\Jobs\SendOrderEmail;
 use App\Order;
 use App\OrderItem;
+use App\Restaurant;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -51,55 +52,63 @@ class OrderManager implements ManagerInterface
 
     /**
      * @param OrderEntity $order
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return Order[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     * @throws \Exception
      */
     public function addOrder(OrderEntity $order)
     {
-        $rawOrder = Order::create([
-            'user_id' => Auth::user()->getAuthIdentifier(),
-            'restaurant_id' => $order->getRestaurantId(),
-            'customer_address_id' => $order->getCustomerAddressId(),
-            'status' => $order->getStatus()
-        ]);
 
-        // INSERT to order items table
-        $orderItems = [];
-        if ($rawOrder instanceof Order) {
-            foreach ($order->getOrderitems() as $key => $value) {
-                $value['order_id'] = $rawOrder['id'];
-                $orderItem = OrderItem::create($value);
-                if ($orderItem instanceof OrderItem) {
-                    $orderItems[] = $orderItem;
-                }
-            }
+        $rawOrder = $this->saveOrder($order);
+
+        if ($rawOrder) {
+            $savedOrder = Order::with('orderItems', 'orderItems.food')
+                ->where('id', $rawOrder->id)
+                ->first();
+            $savedOrder['customer_address'] = CustomerAddress::where('id', $rawOrder['customer_address_id'])->first();
+            $savedOrder['user'] = User::where('id', Auth::user()->getAuthIdentifier())->first();
+            $savedOrder['restaurant_id'] = $rawOrder->restaurant_id;
+            $this->publishOrder($this->map($savedOrder));
+
+            return Order::with('orderItems')
+                ->where('user_id', Auth::user()->getAuthIdentifier())
+                ->get();
         }
 
-        // Publish in channel
+        throw new \DummyException('error');
+    }
 
-        $savedOrder = Order::with('orderItems', 'orderItems.food')
-            ->where('id',  $rawOrder->id)
-            ->first();
+    public function calculateOrderTotal(OrderEntity $order)
+    {
+        $total = 0;
+        $foods = [];
+        foreach ($order->getOrderItems() as $item) {
+            $total += $item->getPrice() * $item->getAmount();
+            $foods[$item->getFood()->getName()] = [
+                'totalAmount' => $item->getAmount(),
+                'itemTotalPrice' => $item->getPrice() * $item->getAmount()
+            ];
+        }
 
-        $savedOrder->customer_address = CustomerAddress::where('id', $rawOrder['customer_address_id'])->first();
-        $customerAddressManager = new CustomerAddressManager();
-        $savedOrder->customer_address = $customerAddressManager->map($savedOrder->customer_address);
+        return [
+            'totalPrice' => $total,
+            'foods' => $foods
+            ];
+    }
 
-
-        $savedOrder->user = User::where('id', Auth::user()->getAuthIdentifier())->first();
-
-        // TODO map also for the user after transforming User entity variable's to camelCase
-        // $user = new UserManager();
-        // $savedOrder->user = $user->map($savedOrder->user);
-
-
-        // TODO map also for food in orderItems and seperate publish method from addOrder method
-
-
-        Redis::publish('restaurant_id.' . $order->getRestaurantId(), $savedOrder);
-
-        return Order::with('orderItems')
-            ->where('user_id', Auth::user()->getAuthIdentifier())
-            ->get();
+    public function publishOrder(OrderEntity $orderedItem)
+    {
+        $calculate = $this->calculateOrderTotal($orderedItem);
+        Redis::publish('restaurant_id.' . 4, json_encode(
+            [
+                'total' => $calculate['totalPrice'],
+                'foodInformation' => $calculate['foods'],
+                'orderNumber' => $orderedItem->getId(),
+                'customerFirstName' => $orderedItem->getUser()->getFirstName(),
+                'customerLastName' => $orderedItem->getUser()->getLastName(),
+                'customerNumber' => $orderedItem->getUser()->getPhoneNumber(),
+                'orderAddress' => $orderedItem->getCustomerAddress()->getAddress()
+            ]
+        ));
     }
 
     public function updateOrder($id)
@@ -119,16 +128,15 @@ class OrderManager implements ManagerInterface
     public function map($db)
     {
         $orderEntity = new OrderEntity();
-        $orderEntity->setId($db['id']);
-        $orderEntity->setCustomerId($db['user_id']);
-        $orderEntity->setCustomerAddressId($db['customer_address_id']);
-        $orderEntity->setRestaurantId($db['restaurant_id']);
+        $orderEntity->setId($db->id);
+        $orderEntity->setCustomerId($db->user_id);
+        $orderEntity->setCustomerAddressId($db->customer_address_id);
+        $orderEntity->setRestaurantId($db->restaurant_id);
 //        $orderEntity->setRestaurant($db['restaurant']);
-        $orderEntity->setCustomerAddress($db['customer_address']);
-        $orderEntity->setStatus($db['status']);
+        $orderEntity->setCustomerAddress($db->customer_address);
+        $orderEntity->setStatus($db->status);
 
         $orderItems = [];
-
         foreach ($db->orderItems as $item) {
             $orderItemEntity = new OrderItemEntity();
             $orderItemEntity->setId($item->id);
@@ -136,26 +144,27 @@ class OrderManager implements ManagerInterface
             $orderItemEntity->setOrderId($item->order_id);
             $orderItemEntity->setAmount($item->amount);
             $orderItemEntity->setPrice($item->price);
-            $orderItemEntity->setFood($item->food);
 
-//            foreach ($item->food as $food) {
-//                $foodEntity = new FoodEntity();
-//                $foodEntity->setName($food['name']);
-//                $foodEntity->setRestaurantId($food['restaurant_id']);
-//                $foodEntity->setDetail($food['detail']);
-//                $foodEntity->setImg($food['img']);
-//                $foodEntity->setPrice($food['price']);
-//
-//                $item->food = $foodEntity;
-//
-//                dd($item->food);
-//            }
-
+            $foodEntity = new FoodEntity();
+            $foodEntity->setName($item->food->name);
+            $foodEntity->setRestaurantId($item->food->restaurant_id);
+            $foodEntity->setDetail($item->food->detail);
+            $foodEntity->setImg($item->food->img);
+            $foodEntity->setPrice($item->food->price);
+            $orderItemEntity->setFood($foodEntity ?? null);
             $orderItems[] = $orderItemEntity;
+        }
+        $orderEntity->setOrderItems($orderItems);
 
+        if (isset($db->user)) {
+            $userManager = new UserManager();
+            $orderEntity->setUser($userManager->map($db->user));
         }
 
-        $orderEntity->setOrderItems($orderItems);
+        if (isset($db->customer_address)) {
+            $customerAddressManager = new CustomerAddressManager();
+            $orderEntity->setCustomerAddress($customerAddressManager->map($db->customer_address));
+        }
 
         return $orderEntity;
     }
@@ -190,5 +199,30 @@ class OrderManager implements ManagerInterface
         }
 
         return $orderEntity;
+    }
+
+    public function saveOrder(OrderEntity $order)
+    {
+        if ($rawOrder = Order::create([
+            'user_id' => Auth::user()->getAuthIdentifier(),
+            'restaurant_id' => $order->getRestaurantId(),
+            'customer_address_id' => $order->getCustomerAddressId(),
+            'status' => $order->getStatus()
+        ])) {
+            $orderItems = [];
+            if ($rawOrder instanceof Order) {
+                foreach ($order->getOrderitems() as $key => $value) {
+                    $value['order_id'] = $rawOrder['id'];
+                    $orderItem = OrderItem::create($value);
+                    if ($orderItem instanceof OrderItem) {
+                        $orderItems[] = $orderItem;
+                    }
+                }
+            }
+
+            return $rawOrder;
+        }
+
+        return false;
     }
 }
