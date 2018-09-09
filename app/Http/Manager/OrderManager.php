@@ -3,14 +3,12 @@
 namespace App\Http\Manager;
 
 use App\CustomerAddress;
-use App\Food;
 use App\Http\Entity\FoodEntity;
 use App\Http\Entity\OrderEntity;
 use App\Http\Entity\OrderItemEntity;
 use App\Jobs\SendOrderEmail;
 use App\Order;
 use App\OrderItem;
-use App\Restaurant;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -95,20 +93,23 @@ class OrderManager implements ManagerInterface
             ];
     }
 
-    public function publishOrder(OrderEntity $orderedItem)
+    public function publishOrder(OrderEntity $order)
     {
-        $calculate = $this->calculateOrderTotal($orderedItem);
-        Redis::publish('restaurant_id.' . 4, json_encode(
+        $calculate = $this->calculateOrderTotal($order);
+        Redis::publish('restaurant_id.5' , json_encode(
             [
                 'total' => $calculate['totalPrice'],
                 'foodInformation' => $calculate['foods'],
-                'orderNumber' => $orderedItem->getId(),
-                'customerFirstName' => $orderedItem->getUser()->getFirstName(),
-                'customerLastName' => $orderedItem->getUser()->getLastName(),
-                'customerNumber' => $orderedItem->getUser()->getPhoneNumber(),
-                'orderAddress' => $orderedItem->getCustomerAddress()->getAddress()
+                'orderNumber' => $order->getId(),
+                'customerFirstName' => $order->getUser()->getFirstName(),
+                'customerLastName' => $order->getUser()->getLastName(),
+                'customerPhoneNumber' => $order->getUser()->getPhoneNumber(),
+                'orderAddress' => $order->getCustomerAddress()->getAddress(),
+                'status' => $order->getStatus()
             ]
         ));
+
+        // TODO save published order to Mongo DB
     }
 
     public function updateOrder($id)
@@ -132,9 +133,8 @@ class OrderManager implements ManagerInterface
         $orderEntity->setCustomerId($db->user_id);
         $orderEntity->setCustomerAddressId($db->customer_address_id);
         $orderEntity->setRestaurantId($db->restaurant_id);
-//        $orderEntity->setRestaurant($db['restaurant']);
         $orderEntity->setCustomerAddress($db->customer_address);
-        $orderEntity->setStatus($db->status);
+        $orderEntity->setStatus($db['status']); // ??
 
         $orderItems = [];
         foreach ($db->orderItems as $item) {

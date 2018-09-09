@@ -2,9 +2,6 @@
 
 namespace App\Http\Entity;
 
-use App\CustomerAddress;
-use App\Order;
-use App\User;
 
 class OrderEntity
 {
