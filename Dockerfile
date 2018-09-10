@@ -1,6 +1,12 @@
-FROM php:7.2.2-fpm-alpine
+FROM php:7.1.9-fpm-alpine
 
 RUN apk update && apk add build-base
+
+RUN apk add --no-cache $PHPIZE_DEPS \
+    && pecl install xdebug-2.5.0 \
+    && docker-php-ext-enable xdebug \
+    && pecl install mongodb \
+    && docker-php-ext-enable mongodb
 
 RUN apk add postgresql postgresql-dev \
   && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
