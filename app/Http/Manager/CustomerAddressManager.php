@@ -90,10 +90,10 @@ class CustomerAddressManager implements ManagerInterface
     public function map($db)
     {
         $customerAddressEntity = new CustomerAddressEntity();
-        $customerAddressEntity->setId($db['id']);
-        $customerAddressEntity->setUserId($db['user_id']);
-        $customerAddressEntity->setPostcode($db['postcode']);
-        $customerAddressEntity->setAddress($db['address']);
+        $customerAddressEntity->setId($db->id);
+        $customerAddressEntity->setUserId($db->user_id);
+        $customerAddressEntity->setPostcode($db->postcode);
+        $customerAddressEntity->setAddress($db->address);
 
         return $customerAddressEntity;
     }

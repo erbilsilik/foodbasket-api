@@ -29,10 +29,10 @@ class UserManager implements ManagerInterface
     {
         $userEntity = new UserEntity();
         $userEntity->setId($db['id']);
-        $userEntity->setFirstName($db['firstName']);
-        $userEntity->setLastName($db['lastName']);
+        $userEntity->setFirstName($db['first_name']);
+        $userEntity->setLastName($db['last_name']);
         $userEntity->setEmail($db['email']);
-        $userEntity->setPhoneNumber($db['phoneNumber']);
+        $userEntity->setPhoneNumber($db['phone_number']);
         $userEntity->setPassword(Hash::make($db['password']));
         $userEntity->setAccessType($db['accessType']);
         $userEntity->setStatus($db['status']);

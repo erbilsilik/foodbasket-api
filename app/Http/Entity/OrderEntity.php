@@ -2,17 +2,68 @@
 
 namespace App\Http\Entity;
 
+
 class OrderEntity
 {
-    private $id;
-    private $userId;
-    private $customerAddressId;
-    private $restaurantId;
-    private $status;
-    private $createdAt;
-    private $orderItems = [];
-    private $restaurant;
-    private $customerAddress;
+    public $id;
+    public $customerId;
+    public $customerAddressId;
+    public $restaurantId;
+    public $status;
+    public $createdAt;
+    public $orderItems;
+    public $restaurant;
+    public $customerAddress;
+    public $user;
+    public $address;
+
+    /**
+     * @return UserEntity
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param mixed $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return OrderItemEntity[]
+     */
+    public function getOrderItems()
+    {
+        return $this->orderItems;
+    }
+
+    /**
+     * @param [] $orderItems
+     */
+    public function setOrderItems($orderItems)
+    {
+        $this->orderItems = $orderItems;
+    }
 
     /**
      * @return mixed
@@ -33,17 +84,17 @@ class OrderEntity
     /**
      * @return mixed
      */
-    public function getUserId()
+    public function getCustomerId()
     {
-        return $this->userId;
+        return $this->customerId;
     }
 
     /**
-     * @param mixed $userId
+     * @param mixed $customerId
      */
-    public function setUserId($userId)
+    public function setCustomerId($customerId)
     {
-        $this->userId = $userId;
+        $this->customerId = $customerId;
     }
 
     /**
@@ -111,22 +162,6 @@ class OrderEntity
     }
 
     /**
-     * @return array
-     */
-    public function getOrderItems()
-    {
-        return $this->orderItems;
-    }
-
-    /**
-     * @param array $orderItems
-     */
-    public function setOrderItems($orderItems)
-    {
-        $this->orderItems = $orderItems;
-    }
-
-    /**
      * @return mixed
      */
     public function getRestaurant()
@@ -143,7 +178,7 @@ class OrderEntity
     }
 
     /**
-     * @return mixed
+     * @return CustomerAddressEntity
      */
     public function getCustomerAddress()
     {

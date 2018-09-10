@@ -11,7 +11,6 @@ class UserEntity
     public $phone_number;
     public $access_type;
     public $status;
-    public $password;
     public $created_at;
 
     /**
@@ -25,7 +24,7 @@ class UserEntity
     /**
      * @param mixed $id
      */
-    public function setId($id): void
+    public function setId($id)
     {
         $this->id = $id;
     }
@@ -41,7 +40,7 @@ class UserEntity
     /**
      * @param mixed $first_name
      */
-    public function setFirstName($first_name): void
+    public function setFirstName($first_name)
     {
         $this->first_name = $first_name;
     }
@@ -57,7 +56,7 @@ class UserEntity
     /**
      * @param mixed $last_name
      */
-    public function setLastName($last_name): void
+    public function setLastName($last_name)
     {
         $this->last_name = $last_name;
     }
@@ -73,7 +72,7 @@ class UserEntity
     /**
      * @param mixed $email
      */
-    public function setEmail($email): void
+    public function setEmail($email)
     {
         $this->email = $email;
     }
@@ -89,7 +88,7 @@ class UserEntity
     /**
      * @param mixed $phone_number
      */
-    public function setPhoneNumber($phone_number): void
+    public function setPhoneNumber($phone_number)
     {
         $this->phone_number = $phone_number;
     }
@@ -105,7 +104,7 @@ class UserEntity
     /**
      * @param mixed $access_type
      */
-    public function setAccessType($access_type): void
+    public function setAccessType($access_type)
     {
         $this->access_type = $access_type;
     }
@@ -121,25 +120,9 @@ class UserEntity
     /**
      * @param mixed $status
      */
-    public function setStatus($status): void
+    public function setStatus($status)
     {
         $this->status = $status;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password): void
-    {
-        $this->password = $password;
     }
 
     /**
@@ -153,7 +136,7 @@ class UserEntity
     /**
      * @param mixed $created_at
      */
-    public function setCreatedAt($created_at): void
+    public function setCreatedAt($created_at)
     {
         $this->created_at = $created_at;
     }

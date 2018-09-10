@@ -17,13 +17,13 @@ class OrderItem extends Model
         'id', 'food_id', 'order_id', 'amount', 'price'
         ];
 
-    public function foods()
+    public function food()
     {
-        $this->hasMany('\App\Food');
+        return $this->belongsTo('\App\Food');
     }
 
     public function order()
     {
-        $this->belongsTo('\App\Order');
+        return $this->belongsTo('\App\Order');
     }
 }

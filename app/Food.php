@@ -17,6 +17,11 @@ class Food extends Model
 
     public function restaurant()
     {
-        $this->belongsTo('App\Restaurant');
+        return $this->belongsTo('App\Restaurant');
+    }
+
+    public function orderItems()
+    {
+        return $this->hasMany('App\OrderItem');
     }
 }
