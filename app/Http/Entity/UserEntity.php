@@ -11,7 +11,6 @@ class UserEntity
     public $phone_number;
     public $access_type;
     public $status;
-    private $password;
     public $created_at;
 
     /**
@@ -124,22 +123,6 @@ class UserEntity
     public function setStatus($status)
     {
         $this->status = $status;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
     }
 
     /**
