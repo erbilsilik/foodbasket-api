@@ -33,7 +33,6 @@ class UserManager implements ManagerInterface
         $userEntity->setLastName($db['last_name']);
         $userEntity->setEmail($db['email']);
         $userEntity->setPhoneNumber($db['phone_number']);
-        $userEntity->setPassword(Hash::make($db['password']));
         $userEntity->setAccessType($db['accessType']);
         $userEntity->setStatus($db['status']);
 
