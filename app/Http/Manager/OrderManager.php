@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redis;
 use Mockery\Exception;
+use \MongoDB\Driver\BulkWrite;
 
 class OrderManager implements ManagerInterface
 {
@@ -96,18 +97,22 @@ class OrderManager implements ManagerInterface
     public function publishOrder(OrderEntity $order)
     {
         $calculate = $this->calculateOrderTotal($order);
-        Redis::publish('restaurant_id.5' , json_encode(
-            [
-                'total' => $calculate['totalPrice'],
-                'foodInformation' => $calculate['foods'],
-                'orderNumber' => $order->getId(),
-                'customerFirstName' => $order->getUser()->getFirstName(),
-                'customerLastName' => $order->getUser()->getLastName(),
-                'customerPhoneNumber' => $order->getUser()->getPhoneNumber(),
-                'orderAddress' => $order->getCustomerAddress()->getAddress(),
-                'status' => $order->getStatus()
-            ]
-        ));
+        $mongo = Mongo::get();
+        $bulk = new BulkWrite();
+        $publishData = [
+            'total' => $calculate['totalPrice'],
+            'foodInformation' => $calculate['foods'],
+            'orderNumber' => $order->getId(),
+            'customerFirstName' => $order->getUser()->getFirstName(),
+            'customerLastName' => $order->getUser()->getLastName(),
+            'customerPhoneNumber' => $order->getUser()->getPhoneNumber(),
+            'orderAddress' => $order->getCustomerAddress()->getAddress(),
+            'status' => $order->getStatus()
+        ];
+        $bulk->insert($publishData);
+
+        $mongo->executeBulkWrite('information.orderInformation', $bulk);
+        Redis::publish('restaurant_id.5' , json_encode($publishData));
 
         // TODO save published order to Mongo DB
     }

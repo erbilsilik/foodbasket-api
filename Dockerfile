@@ -1,6 +1,8 @@
 FROM php:7.1.9-fpm-alpine
 
 RUN apk update && apk add build-base
+RUN apk add openssl-dev
+
 
 RUN apk add --no-cache $PHPIZE_DEPS \
     && pecl install xdebug-2.5.0 \
