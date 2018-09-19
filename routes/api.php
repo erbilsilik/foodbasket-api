@@ -16,55 +16,53 @@ use Illuminate\Http\Request;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::group(['namespace' => 'Api'], (function () {
 
-    Route::post('register', 'Auth\RegisterController@register');
-    Route::post('login', 'Auth\LoginController@login');
-    Route::group(['middleware' => ['jwt.auth', 'check.customer']], function () {
-        Route::get('logout', 'Auth\LoginController@logout');
-        Route::post('refresh', 'Auth\LoginController@refresh');
-        Route::get('me', 'Auth\LoginController@me');
-    });
-    //Search
-    Route::get('restaurant-search', 'RestaurantController@searchRestaurants');
+Route::post('register', 'Auth\RegisterController@register');
+Route::post('login', 'Auth\LoginController@login');
+Route::group(['middleware' => ['jwt.auth', 'check.customer']], function () {
+    Route::get('logout', 'Auth\LoginController@logout');
+    Route::post('refresh', 'Auth\LoginController@refresh');
+    Route::get('me', 'Auth\LoginController@me');
+});
+//Search
+Route::get('restaurant-search', 'RestaurantController@searchRestaurants');
 
-    Route::group(['middleware' => 'check.owner'], (function () {
-        //Restaurants
-        Route::get('restaurants', 'RestaurantController@index');
-        Route::get('restaurants/{id}', 'RestaurantController@show');
-        Route::post('restaurants', 'RestaurantController@store');
-        Route::put('restaurants/{id}', 'RestaurantController@update');
-        Route::delete('restaurants/{id}', 'RestaurantController@destroy');
-    }));
+Route::group(['middleware' => 'check.owner'], (function () {
+    //Restaurants
+    Route::get('restaurants', 'RestaurantController@index');
+    Route::get('restaurants/{id}', 'RestaurantController@show');
+    Route::post('restaurants', 'RestaurantController@store');
+    Route::put('restaurants/{id}', 'RestaurantController@update');
+    Route::delete('restaurants/{id}', 'RestaurantController@destroy');
+}));
 
-    Route::group(['middleware' => 'check.restaurant.owner'], (function () {
-        //Foods
-        Route::get('{restaurantId}/foods', 'FoodController@index');
-        Route::post('{restaurantId}/foods', 'FoodController@store');
-        Route::put('foods/{id}', 'FoodController@update');
-        Route::delete('foods/{id}', 'FoodController@destroy');
+Route::group(['middleware' => 'check.restaurant.owner'], (function () {
+    //Foods
+    Route::get('{restaurantId}/foods', 'FoodController@index');
+    Route::post('{restaurantId}/foods', 'FoodController@store');
+    Route::put('foods/{id}', 'FoodController@update');
+    Route::delete('foods/{id}', 'FoodController@destroy');
 
-        //Orders
-        Route::get('orders', 'OrderController@index');
-        Route::post('orders', 'OrderController@store');
-        Route::delete('orders/{id}', 'OrderController@destroy');
-        Route::put('orders/{id}', 'OrderController@update');
-
-    }));
-
-    Route::group(['middleware' => 'check.customer'], (function () {
-        //Foods
-        Route::get('{restaurantId}/foods', 'FoodController@index');
-
-        //Orders
-        Route::get('{userId}/orders', 'OrderController@index');
-        Route::post('{userId}/orders', 'OrderController@store');
-
-        // Customer Addresses
-        Route::get('customer-addresses', 'CustomerAddressController@index');
-        Route::post('customer-addresses', 'CustomerAddressController@store');
-        Route::delete('customer-addresses/{id}', 'CustomerAddressController@destroy');
-        Route::put('customer-addresses/{id}', 'CustomerAddressController@update');
-    }));
+    //Orders
+    Route::get('orders', 'OrderController@index');
+    Route::post('orders', 'OrderController@store');
+    Route::delete('orders/{id}', 'OrderController@destroy');
+    Route::put('orders/{id}', 'OrderController@update');
 
 }));
+
+Route::group(['middleware' => 'check.customer'], (function () {
+    //Foods
+    Route::get('{restaurantId}/foods', 'FoodController@index');
+
+    //Orders
+    Route::get('{userId}/orders', 'OrderController@index');
+    Route::post('{userId}/orders', 'OrderController@store');
+
+    // Customer Addresses
+    Route::get('customer-addresses', 'CustomerAddressController@index');
+    Route::post('customer-addresses', 'CustomerAddressController@store');
+    Route::delete('customer-addresses/{id}', 'CustomerAddressController@destroy');
+    Route::put('customer-addresses/{id}', 'CustomerAddressController@update');
+}));
+
