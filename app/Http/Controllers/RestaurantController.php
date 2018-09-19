@@ -1,20 +1,35 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Manager\CustomerAddressManager;
+use App\Restaurant;
 use Illuminate\Http\Request;
+use App\Http\Manager\RestaurantManager;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redis;
 
-class CustomerAddressController extends Controller
+class RestaurantController extends Controller
 {
-    private $customerAddressManager;
+    private $restaurantManager;
 
+    /**
+     * RestaurantController constructor.
+     */
     public function __construct()
     {
-        $this->customerAddressManager = New CustomerAddressManager();
+        $this->restaurantManager = new RestaurantManager();
     }
 
+    // GENERAL ENDPOINTS //
+
+    public function searchRestaurants(Request $request)
+    {
+        $postCode = $request->get('postcode');
+        return response()
+            ->json($this->restaurantManager->searchRestaurantsByPostCode($postCode));
+    }
+
+    // ENDPOINTS FOR OWNERS //
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +38,7 @@ class CustomerAddressController extends Controller
     public function index()
     {
         return response()
-            ->json($this->customerAddressManager->getCustomerAddresses());
+            ->json($this->restaurantManager->getRestaurantList());
     }
 
     /**
@@ -34,10 +49,7 @@ class CustomerAddressController extends Controller
      */
     public function store(Request $request)
     {
-        $address = $this->customerAddressManager->mapExternal($request->all());
-        $newAddress = $this->customerAddressManager->addAddress($address);
-
-        return response()->json($newAddress, 201);
+        return $this->restaurantManager->addRestaurant($request->all());
     }
 
     /**
@@ -48,9 +60,9 @@ class CustomerAddressController extends Controller
      */
     public function show($id)
     {
-        return response()->json($this->customerAddressManager->getAddress($id));
+        return response()
+            ->json($this->restaurantManager->getRestaurantById($id));
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -62,7 +74,7 @@ class CustomerAddressController extends Controller
     public function update(Request $request, $id)
     {
         return response()
-            ->json($this->customerAddressManager->updateAddress($id, $request->all()));
+            ->json($this->restaurantManager->updateRestaurant($id, $request->all()));
     }
 
     /**
@@ -73,7 +85,7 @@ class CustomerAddressController extends Controller
      */
     public function destroy($id)
     {
-        $this->customerAddressManager->deleteAddress($id);
+        $this->restaurantManager->deleteRestaurant($id);
 
         return response(204);
     }
